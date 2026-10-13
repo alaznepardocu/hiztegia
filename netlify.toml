@@ -3,7 +3,7 @@
   # This is the directory that `@netlify/plugin-nextjs` copies all of the Next.js serverless functions into
   # It's also the only directory that `netlify-plugin-inline-functions-env` will touch
   functions = ".netlify/functions-internal"
-  publish = "out"
+  publish = "dist/jsonPostUsers/browser"
 
 [build.environment]
   CONTENTFUL_ENVIRONMENT = "develop"
