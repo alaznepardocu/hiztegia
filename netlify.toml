@@ -1,5 +1,5 @@
 [build]
-  publish = 'dist/site/browser'
+  publish = 'dist/jsonPostUsers/browser'
 
 [[plugins]]
   package = '@netlify/plugin-angular-universal'
