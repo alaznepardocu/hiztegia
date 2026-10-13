@@ -1,10 +1,21 @@
 [build]
-  publish = 'dist/jsonPostUsers/browser'
+  command = "npm run build"
+  # This is the directory that `@netlify/plugin-nextjs` copies all of the Next.js serverless functions into
+  # It's also the only directory that `netlify-plugin-inline-functions-env` will touch
+  functions = ".netlify/functions-internal"
+  publish = "out"
+
+[build.environment]
+  CONTENTFUL_ENVIRONMENT = "develop"
+
+[context.production.environment]
+  CONTENTFUL_ENVIRONMENT = "master"
 
 [[plugins]]
-  package = '@netlify/plugin-angular-universal'
+  package = "@netlify/plugin-nextjs"
 
-[[redirects]]
-  from ='/'
-  to ='/index.html'
-  status = 200
+[[plugins]]
+  package = "netlify-plugin-inline-functions-env"
+  [plugins.inputs]
+    # By default the plugin uses the `preBuild` event, which runs too early to be useful
+    buildEvent = "onBuild"
