@@ -1,28 +1,26 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Serviceusers } from './serviceusers';
-import { User } from './userdata';
+import { CommonModule } from '@angular/common';
+import { Component, signal } from '@angular/core';
+import { VisualizarHiztegia } from './visualizar-hiztegia/visualizar-hiztegia';
+import { Proba } from './proba/proba';
+import { ServiceHiztegia } from './hiztegiService';
+import { Hitz } from './hiztegia';
+
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [CommonModule, VisualizarHiztegia, Proba],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
 })
-export class App implements OnInit{
-  protected readonly title = signal('jsonPostUsers');
+export class App{
 
-  serviceusers= inject(Serviceusers)
-  users=signal<User[]>([])
-
-  ngOnInit(): void {
-    this.serviceusers.getUsers().subscribe({
-      next:resultado =>{
-        console.log(resultado);
-        this.users.set(resultado)
+        constructor(private hiztegiService: ServiceHiztegia){ }
+    
+      ngOnInit(): void {
+    this.hiztegiService.getData().subscribe((data: any) => {
+      console.log(data);
+      this.hiztegiService.hiztegia.set(data);
+  });
       }
-    })
-  }
-  
 
 }

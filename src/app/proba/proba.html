@@ -1,0 +1,20 @@
+
+<div>
+    <h1>Test</h1>
+    <h2>{{palabraSeleccionada.EU}}</h2>
+
+    <input type="text" name="erderaz" placeholder="Erderaz" [(ngModel)]="palabraIntroducida">
+
+    <p>{{textoAcierto}}</p>
+    @if(this.intentos == 0){
+        <p>La solución era: {{palabraSeleccionada.ES}}</p>
+    }
+    
+
+    <button (click)="reset()">Reset</button>
+
+    @if(!acertado){
+        <button (click)="probar()">Intenta</button>
+    }
+    <button (click)="sacarPalabra()">Nueva Palabra</button>
+</div>
