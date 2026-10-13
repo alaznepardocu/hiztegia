@@ -1,6 +1,4 @@
 [build]
-  base = 'site/'
-  command = 'ng build && ng run site:serverless:production'
   publish = 'dist/site/browser'
 
 [[plugins]]
