@@ -1,0 +1,12 @@
+[build]
+  base = 'site/'
+  command = 'ng build && ng run site:serverless:production'
+  publish = 'dist/site/browser'
+
+[[plugins]]
+  package = '@netlify/plugin-angular-universal'
+
+[[redirects]]
+  from ='/'
+  to ='/index.html'
+  status = 200
