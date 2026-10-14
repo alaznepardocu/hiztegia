@@ -1,4 +1,4 @@
 export interface Hitz {
-    EU: string,
-    ES: string
+    eu: string,
+    es: string
 }
