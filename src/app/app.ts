@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
 import { Component, inject } from '@angular/core';
+=======
+import { Component, signal } from '@angular/core';
+import { VisualizarHiztegia } from './visualizar-hiztegia/visualizar-hiztegia';
+import { Proba } from './proba/proba';
+>>>>>>> parent of b1a20c4 (PreFirebase)
 import { VisualizarHiztegia } from './visualizar-hiztegia/visualizar-hiztegia';
 import { Proba } from './proba/proba';
 import { ServiceHiztegia } from './hiztegiService';
