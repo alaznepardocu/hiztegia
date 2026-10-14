@@ -1,8 +1,14 @@
 
 import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
 import { ServiceHiztegia } from './hiztegiService';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Component } from '@angular/core';
+=======
+import { Component, inject } from '@angular/core';
+import { ServiceHiztegia } from './hiztegiService';
+import { RouterLink, RouterOutlet } from '@angular/router';
+>>>>>>> 11d410d5bfc64fb85d95a37703c48d800ddc907b
 /* import { Hitz } from './hiztegia';
 import { Observable } from 'rxjs';
 import { collection, collectionData, Firestore } from 'firebase/firestore'; */
