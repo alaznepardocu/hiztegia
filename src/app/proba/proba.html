@@ -4,7 +4,7 @@
 
     <h1 class="text-center">Test</h1>
     <hr>
-    <h2 class="text-center">{{palabraSeleccionada.EU}}</h2>
+    <h2 class="text-center">{{palabraSeleccionada.eu}}</h2>
 
     @if(this.intentos > 0 && !acertado){
         <div class="input-group mb-3">
@@ -17,7 +17,7 @@
     }
     <p class="text-center" [innerHTML]="textoAcierto" ></p>
     @if(this.intentos == 0){
-        <p class="text-center">La solución era: {{palabraSeleccionada.ES}}</p>
+        <p class="text-center">La solución era: {{palabraSeleccionada.es}}</p>
     }
     
     <div class="d-grid gap-5">

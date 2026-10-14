@@ -13,8 +13,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class Proba {
     palabraSeleccionada:Hitz = {
-      EU: '',
-      ES: ''
+      eu: '',
+      es: ''
     };
     acertado = false;
     palabrasAEstudiar: Hitz [] = [];
@@ -46,14 +46,14 @@ export class Proba {
 
     public probar(){
       if(this.intentos>0){
-      if(this.palabraIntroducida.toLowerCase() == this.palabraSeleccionada.ES.toLowerCase()){
+      if(this.palabraIntroducida.toLowerCase() == this.palabraSeleccionada.es.toLowerCase()){
         this.textoAcierto = "<strong>Muy bien</strong>";
         this.acertado = true;
         this.palabrasAEstudiar.splice(this.palabrasAEstudiar.indexOf(this.palabraSeleccionada), 1);
         this.palabraIntroducida = "";
         this.palabraSeleccionada = {
-          EU: '',
-          ES: ''
+          eu: '',
+          es: ''
         };
         if(this.palabrasAEstudiar.length === 0){
           this.textoAcierto = "<strong>¡Felicidades! Has adivinado todas las palabras.</strong>";
