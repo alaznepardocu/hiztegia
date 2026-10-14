@@ -1,26 +1,15 @@
+
 import { CommonModule } from '@angular/common';
-<<<<<<< HEAD
-import { Component, inject } from '@angular/core';
-=======
-import { Component, signal } from '@angular/core';
-import { VisualizarHiztegia } from './visualizar-hiztegia/visualizar-hiztegia';
-import { Proba } from './proba/proba';
-<<<<<<< HEAD
->>>>>>> parent of b1a20c4 (PreFirebase)
-=======
->>>>>>> parent of b1a20c4 (PreFirebase)
-import { VisualizarHiztegia } from './visualizar-hiztegia/visualizar-hiztegia';
-import { Proba } from './proba/proba';
 import { ServiceHiztegia } from './hiztegiService';
-import { Hitz } from './hiztegia';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
 /* import { Hitz } from './hiztegia';
 import { Observable } from 'rxjs';
 import { collection, collectionData, Firestore } from 'firebase/firestore'; */
 
 
 @Component({
-  imports: [CommonModule, RouterOutlet, RouterLink, VisualizarHiztegia],
+  imports: [CommonModule, RouterOutlet, RouterLink],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
