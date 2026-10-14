@@ -1,20 +1,33 @@
 
-<div>
-    <h1>Test</h1>
-    <h2>{{palabraSeleccionada.EU}}</h2>
+<div class="d-flex justify-content-center">
+    <div class="card" style="width: 30rem;">
 
-    <input type="text" name="erderaz" placeholder="Erderaz" [(ngModel)]="palabraIntroducida">
+    <h1 class="text-center">Test</h1>
+    <hr>
+    <h2 class="text-center">{{palabraSeleccionada.EU}}</h2>
 
-    <p>{{textoAcierto}}</p>
+    @if(this.intentos > 0 && !acertado){
+        <div class="input-group mb-3">
+        <input type="text" class="form-control" name="erderaz" placeholder="Erderaz" [(ngModel)]="palabraIntroducida" aria-label="Recipient's username" aria-describedby="button-addon2">
+        @if(!acertado){
+        <button class="btn btn-secondary" (click)="probar()">Intenta</button>
+    }
+        </div>
+
+    }
+    <p class="text-center" [innerHTML]="textoAcierto" ></p>
     @if(this.intentos == 0){
-        <p>La solución era: {{palabraSeleccionada.ES}}</p>
+        <p class="text-center">La solución era: {{palabraSeleccionada.ES}}</p>
     }
     
+    <div class="d-grid gap-5">
 
-    <button (click)="reset()">Reset</button>
-
-    @if(!acertado){
-        <button (click)="probar()">Intenta</button>
+            @if (palabrasAEstudiar.length > 0) {
+        <br><button class="btn btn-primary" (click)="sacarPalabra()">Nueva Palabra</button>
     }
-    <button (click)="sacarPalabra()">Nueva Palabra</button>
+    <button class="btn btn-danger" (click)="reset()">Reset</button>
+
+    
+    </div>
+    <p class="text-center">Palabras restantes: {{palabrasAEstudiar.length}} / {{serviceHiztegia.hiztegia().length}}</p>
 </div>
