@@ -4,11 +4,11 @@ import { VisualizarHiztegia } from './visualizar-hiztegia/visualizar-hiztegia';
 import { Proba } from './proba/proba';
 import { ServiceHiztegia } from './hiztegiService';
 import { Hitz } from './hiztegia';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 
 @Component({
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, RouterLink],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
