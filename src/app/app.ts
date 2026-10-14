@@ -5,6 +5,9 @@ import { Component, inject } from '@angular/core';
 import { Component, signal } from '@angular/core';
 import { VisualizarHiztegia } from './visualizar-hiztegia/visualizar-hiztegia';
 import { Proba } from './proba/proba';
+<<<<<<< HEAD
+>>>>>>> parent of b1a20c4 (PreFirebase)
+=======
 >>>>>>> parent of b1a20c4 (PreFirebase)
 import { VisualizarHiztegia } from './visualizar-hiztegia/visualizar-hiztegia';
 import { Proba } from './proba/proba';
