@@ -11,6 +11,7 @@
     <tbody>
     @for (palabra of serviceHiztegia.hiztegia(); track $index) {
       <tr>
+        @console.log(palabra);
         <td>{{palabra.eu}}</td>
         <td>{{palabra.es}}</td>
       </tr>
