@@ -3,7 +3,7 @@ import { Proba } from './proba/proba';
 import { VisualizarHiztegia } from './visualizar-hiztegia/visualizar-hiztegia';
 
 export const routes: Routes = [
-  { path: 'proba', component: Proba },
-  { path: 'visualizar-hiztegia', component: VisualizarHiztegia },
-  { path: '', redirectTo: '/proba', pathMatch: 'full' }
+  { path: 'proba', component: Proba , title: 'Test'},
+  { path: 'visualizar-hiztegia', component: VisualizarHiztegia , title: 'Hiztegia'},
+  { path: '**', redirectTo: '/proba' },
 ];

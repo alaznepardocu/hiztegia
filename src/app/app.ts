@@ -8,7 +8,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 
 
 @Component({
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  imports: [CommonModule, RouterOutlet, RouterLink, VisualizarHiztegia],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
