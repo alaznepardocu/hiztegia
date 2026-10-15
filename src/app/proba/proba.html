@@ -37,7 +37,15 @@
         }
         <p class="text-center" [innerHTML]="textoAcierto"></p>
         @if(this.intentos == 0){
-        <p class="text-center">La solución era: {{palabraSeleccionada.es}}</p>
+            @if(modo === "Euskara"){
+                 <p class="text-center">La solución era: {{palabraSeleccionada.es}}</p>
+       
+            }
+            @else {
+                <p class="text-center">La solución era: {{palabraSeleccionada.eu}}</p>
+       
+            }
+        
         }
 
         <div class="d-grid gap-5">

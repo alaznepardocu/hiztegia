@@ -54,10 +54,11 @@ export class Proba {
   public probar() {
     if (this.intentos > 0) {
       if(this.modo === "Euskara"){
-        this.acertado = 
+        this.acertado = true; 
         this.palabraIntroducida.toLowerCase() == this.palabraSeleccionada.es.toLowerCase()
       }
       else{
+        this.acertado = true;
         this.palabraIntroducida.toLowerCase() == this.palabraSeleccionada.eu.toLowerCase()
       }
       if (this.acertado) {
