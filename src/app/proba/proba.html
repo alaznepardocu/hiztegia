@@ -1,7 +1,7 @@
-<div class="d-flex justify-content-center">
-    <div class="card" style="width: 30rem;">
+<div class="d-flex justify-content-center mt-3">
+    <div class="card border-0" style="width: 30rem;">
 
-        <div class="btn-group mb-5" role="group" aria-label="Basic radio toggle button group">
+        <div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" (click)="[modo='Euskara',reset() ]" checked >
         <label class="btn btn-outline-primary" for="btnradio1">Euskara</label>
 
@@ -11,8 +11,9 @@
         <h1 class="text-center">
             {{modo}}
         </h1>
-        <hr>
+        
         @if(this.empezado){
+            <hr>
             @if(modo === "Euskara"){
                  <h2 class="text-center">{{palabraSeleccionada.eu}}</h2>
        
@@ -22,13 +23,14 @@
        
             }
         
-        
+       
         @if(this.intentos > 0 && !acertado){
         <div class="input-group mb-3">
-            <input type="text" class="form-control" name="erderaz" placeholder="Erderaz"
+            <input type="text" class="form-control" name="erderaz" placeholder="Traducción"
                 [(ngModel)]="palabraIntroducida" aria-label="Recipient's username" aria-describedby="button-addon2">
             @if(!acertado){
-            <button class="btn btn-secondary" (click)="probar()">Intenta</button>
+            <button class="btn btn-primary" (click)="probar()">Intenta</button>
+            <button class="btn btn-outline-secondary" (click)="palabraIntroducida=''">X</button>
             }
         </div>
 
@@ -41,7 +43,7 @@
         <div class="d-grid gap-5">
 
             @if (palabrasAEstudiar.length > 0) {
-            <br><button class="btn btn-primary" (click)="sacarPalabra()">Nueva Palabra</button>
+            <br><button class="btn btn-warning" (click)="sacarPalabra()">Nueva Palabra</button>
             }
             
 
@@ -49,10 +51,11 @@
         </div>
         <p class="text-center">Palabras restantes: {{palabrasAEstudiar.length}} / {{serviceHiztegia.hiztegia().length}}
         </p>
+        
         <button class="btn btn-danger" (click)="reset()">Reset</button>
         }
         @else {
+             <hr>
             <button class="btn btn-danger" (click)="empezar()">Empezar</button>
         }
-        
-    </div>
+        </div>

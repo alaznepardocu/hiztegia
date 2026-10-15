@@ -1,4 +1,4 @@
-import { Component, Input, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { ServiceHiztegia } from '../hiztegiService';
 import { Hitz } from '../hiztegia';
 import { CommonModule } from '@angular/common';
@@ -48,6 +48,7 @@ export class Proba {
     this.intentos = 3;
     this.textoAcierto = "";
     this.acertado = false;
+    this.palabraIntroducida = "";
   }
 
   public probar() {
@@ -77,11 +78,9 @@ export class Proba {
       }
     }
 
-
-
-
-
   }
+
+
 
 
 
