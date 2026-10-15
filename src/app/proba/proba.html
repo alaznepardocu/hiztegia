@@ -35,7 +35,7 @@
         </div>
 
         }
-        <p class="text-center" [innerHTML]="textoAcierto"></p>
+        <p [class]="classTextoAcierto" [innerHTML]="textoAcierto"></p>
         @if(this.intentos == 0){
             @if(modo === "Euskara"){
                  <p class="text-center">La solución era: {{palabraSeleccionada.es}}</p>

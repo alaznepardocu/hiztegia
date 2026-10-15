@@ -20,6 +20,7 @@ export class Proba {
   palabrasAEstudiar: Hitz[] = [];
   palabraIntroducida: string = "";
   textoAcierto = "";
+  classTextoAcierto = "text-center";
   intentos = 3;
   notificationType = new FormControl('', Validators.required);
   modo = 'Euskara';
@@ -47,6 +48,7 @@ export class Proba {
     this.palabraSeleccionada = this.palabrasAEstudiar[indice]
     this.intentos = 3;
     this.textoAcierto = "";
+    this.classTextoAcierto = "text-center";
     this.acertado = false;
     this.palabraIntroducida = "";
   }
@@ -63,6 +65,7 @@ export class Proba {
       }
       if (this.acertado) {
         this.textoAcierto = "<strong>Muy bien</strong>";
+        this.classTextoAcierto = "text-center  text-success fw-bold fs-2";
         this.palabrasAEstudiar.splice(this.palabrasAEstudiar.indexOf(this.palabraSeleccionada), 1);
         this.palabraIntroducida = "";
         this.palabraSeleccionada = {
@@ -70,12 +73,14 @@ export class Proba {
           es: ''
         };
         if (this.palabrasAEstudiar.length === 0) {
-          this.textoAcierto = "<strong>¡Felicidades! Has adivinado todas las palabras.</strong>";
+          this.textoAcierto = "¡Felicidades! Has adivinado todas las palabras.";
+          this.classTextoAcierto = "text-center text-success fw-bold fs-2";
         }
       }
       else {
         this.intentos--;
         this.textoAcierto = "Intentalo de nuevo<br>Intentos restantes: " + this.intentos;
+        this.classTextoAcierto = "text-center text-info";
       }
     }
 
