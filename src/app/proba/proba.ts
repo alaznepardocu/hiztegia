@@ -11,22 +11,31 @@ import { FormControl, FormsModule, Validators } from '@angular/forms';
   templateUrl: './proba.html',
 })
 export class Proba {
+cursos: any;
   palabraSeleccionada: Hitz = {
     eu: '',
-    es: ''
+    es: '',
+    maila: '',
+    data: ''
   };
+
   empezado = false;
   acertado = false;
   palabrasAEstudiar: Hitz[] = [];
+  palabrasAEstudiarFiltradas: Hitz[] = [];
   palabraIntroducida: string = "";
+  cursoSeleccionado: string = "Todos";
+  fechaSeleccionada: string = "Todos";
   textoAcierto = "";
   classTextoAcierto = "text-center";
   intentos = 3;
   notificationType = new FormControl('', Validators.required);
   modo = 'Euskara';
+  serviceHiztegia: any;
 
-  constructor(private serviceHiztegia: ServiceHiztegia) {
-  };
+  public constructor(serviceHiztegia: ServiceHiztegia) {
+    this.serviceHiztegia = serviceHiztegia;
+  }
 
   public empezar(): void {
     this.empezado = true;
@@ -39,6 +48,24 @@ export class Proba {
 
   public reset(): void {
     this.empezado = false;
+  }
+
+  public filtrarPorCurso(): void {
+    this.reset();
+    if (this.cursoSeleccionado != "Todos") {
+      this.palabrasAEstudiarFiltradas = this.palabrasAEstudiar.filter(palabra => 
+        palabra.maila.toLowerCase() === this.cursoSeleccionado.toLowerCase())
+      }
+      console.log(this.palabrasAEstudiarFiltradas);
+  }
+
+  public filtrarPorFecha(): void {  
+    this.reset();
+    if (this.fechaSeleccionada != "Todos") {
+      this.palabrasAEstudiarFiltradas = this.palabrasAEstudiar.filter(palabra => 
+        palabra.data.toLowerCase() === this.fechaSeleccionada.toLowerCase())
+      }
+      console.log(this.palabrasAEstudiarFiltradas);
   }
 
   public sacarPalabra() {
@@ -72,7 +99,9 @@ export class Proba {
         this.palabraIntroducida = "";
         this.palabraSeleccionada = {
           eu: '',
-          es: ''
+          es: '',
+          maila: '',
+          data: ''
         };
         if (this.palabrasAEstudiar.length === 0) {
           this.textoAcierto = "¡Felicidades! Has adivinado todas las palabras.";

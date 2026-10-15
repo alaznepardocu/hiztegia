@@ -10,6 +10,9 @@ export class ServiceHiztegia {
     private url: string = 'https://api.jsonbin.io/v3/b/6acdd703ac6210605a2cbcf8?meta=false';
 
     hiztegia = signal<Hitz[]>([]);
+    cursos = signal<string[]>(["Todos"]);
+    fechas = signal<string[]>(["Todos"]);
+
 
 
     getData(): Observable<any> {

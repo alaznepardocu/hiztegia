@@ -22,7 +22,9 @@ export class VisualizarHiztegia {
   public filtrar(event: Event) {
     this.palabrasFiltradas = this.serviceHiztegia.hiztegia().filter(palabra =>
       palabra.es.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      palabra.eu.toLowerCase().includes(this.filtro.toLowerCase())
+      palabra.eu.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      palabra.maila.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      palabra.data.toLowerCase().includes(this.filtro.toLowerCase())
     )
   }
 
