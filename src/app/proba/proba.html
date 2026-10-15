@@ -1,88 +1,98 @@
 <div class="d-flex justify-content-center mt-3">
-
+    @if(!this.cargado){
+    <button class="btn btn-danger" (click)="cargar()">Cargar Hiztegia</button>
+    }
+    @else{
     <div class="card border-0" style="width: 30rem;">
-        <!-- <div>
-        Curso:
-        <select id='peeps' name='people' [(ngModel)]="cursoSeleccionado" (change)="filtrarPorCurso()">
-            @for(curso of serviceHiztegia.cursos(); track $index){
-                <option [value]="curso">
-                {{curso}}
-                </option>  }  
-        </select>
-        Fecha:
-        <select id='peeps' name='people' [(ngModel)]="fechaSeleccionada" (change)="filtrarPorFecha()">
-            @for(fecha of serviceHiztegia.fechas(); track $index){
-                <option [value]="fecha">
-                {{fecha}}
-                </option>  }  
-        </select>
-        </div> -->
-
-        <div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
-                (click)="[modo='Euskara',reset() ]" checked>
-            <label class="btn btn-outline-primary" for="btnradio1">Euskara</label>
-
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
-                (click)="[modo='Gaztelaina',reset() ]">
-            <label class="btn btn-outline-primary" for="btnradio2">Gaztelaina</label>
-        </div>
+        @if(this.empezado){
+ 
         <h1 class="text-center">
             {{modo}}
         </h1>
+        
+            <hr>
+                @if(modo === "Euskara"){
+                <h2 class="text-center">{{palabraSeleccionada.eu}}</h2>
 
-        @if(this.empezado){
-        <hr>
-        @if(modo === "Euskara"){
-        <h2 class="text-center">{{palabraSeleccionada.eu}}</h2>
+                }
+                @else {
+                <h2 class="text-center">{{palabraSeleccionada.es}}</h2>
 
-        }
-        @else {
-        <h2 class="text-center">{{palabraSeleccionada.es}}</h2>
-
-        }
+                }
 
 
-        @if(this.intentos > 0 && !acertado){
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" name="erderaz" placeholder="Traducción"
-                [(ngModel)]="palabraIntroducida" aria-label="Recipient's username" aria-describedby="button-addon2">
-            @if(!acertado){
-            <button class="btn btn-primary" (click)="probar()">Intenta</button>
-            <button class="btn btn-outline-secondary" (click)="palabraIntroducida=''">X</button>
+            @if(this.intentos > 0 && !acertado){
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="erderaz" placeholder="Traducción"
+                    [(ngModel)]="palabraIntroducida" aria-label="Recipient's username" aria-describedby="button-addon2">
+                @if(!acertado){
+                <button class="btn btn-primary" (click)="probar()">Intenta</button>
+                <button class="btn btn-outline-secondary" (click)="palabraIntroducida=''">X</button>
+                }
+            </div>
+
             }
-        </div>
+            <p [class]="classTextoAcierto" [innerHTML]="textoAcierto"></p>
+            @if(this.intentos == 0){
+            @if(modo === "Euskara"){
+            <p class="text-center">La solución era: {{palabraSeleccionada.es}}</p>
 
-        }
-        <p [class]="classTextoAcierto" [innerHTML]="textoAcierto"></p>
-        @if(this.intentos == 0){
-        @if(modo === "Euskara"){
-        <p class="text-center">La solución era: {{palabraSeleccionada.es}}</p>
+            }
+            @else {
+            <p class="text-center">La solución era: {{palabraSeleccionada.eu}}</p>
 
-        }
-        @else {
-        <p class="text-center">La solución era: {{palabraSeleccionada.eu}}</p>
-
-        }
-
-        }
-
-        <div class="d-grid gap-5">
-
-            @if (palabrasAEstudiar.length > 0) {
-            <br><button class="btn btn-warning" (click)="sacarPalabra()">Nueva Palabra</button>
             }
 
+            }
+
+            <div class="d-grid gap-5">
+
+                @if (palabrasAEstudiar.length > 0) {
+                <br><button class="btn btn-warning" (click)="sacarPalabra()">Nueva Palabra</button>
+                }
 
 
-        </div>
-        <p class="text-center">Palabras restantes: {{palabrasAEstudiar.length}} / {{serviceHiztegia.hiztegia().length}}
-        </p>
 
-        <button class="btn btn-danger" (click)="reset()">Reset</button>
+            </div>
+            <p class="text-center">Palabras restantes: {{palabrasAEstudiar.length}} / {{nPalabras}}
+            </p>
+
+            <button class="btn btn-danger" (click)="reset()">Reset</button>
         }
         @else {
-        <hr>
+        <div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+                (click)="[modo='Euskara']" checked>
+            <label class="btn btn-outline-primary" for="btnradio1">Euskara</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+                (click)="[modo='Gaztelaina']">
+            <label class="btn btn-outline-primary" for="btnradio2">Gaztelaina</label>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+            Curso:
+            <select id='curso' name='curso' [(ngModel)]="cursoSeleccionado">
+                @for(curso of serviceHiztegia.cursos(); track $index){
+                <option [value]="curso">
+                    {{curso}}
+                </option> }
+            </select>
+            Fecha:
+            <select id='fecha' name='fecha' [(ngModel)]="fechaSeleccionada">
+                @for(fecha of serviceHiztegia.fechas(); track $index){
+                <option [value]="fecha">
+                    {{fecha}}
+                </option> }
+            </select>
+            <button class="btn btn-primary" (click)="filtrar()">Filtrar</button>
+            
+        </div>
+        <p>{{textoFiltrado}}</p>
+        <p>Número de palabras: {{nPalabras}}</p>
         <button class="btn btn-danger" (click)="empezar()">Empezar</button>
         }
+
+
     </div>
+    }
+</div>

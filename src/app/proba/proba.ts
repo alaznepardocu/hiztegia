@@ -19,10 +19,11 @@ cursos: any;
     data: ''
   };
 
+  cargado = false;
   empezado = false;
   acertado = false;
   palabrasAEstudiar: Hitz[] = [];
-  palabrasAEstudiarFiltradas: Hitz[] = [];
+  nPalabras = 0;
   palabraIntroducida: string = "";
   cursoSeleccionado: string = "Todos";
   fechaSeleccionada: string = "Todos";
@@ -32,40 +33,48 @@ cursos: any;
   notificationType = new FormControl('', Validators.required);
   modo = 'Euskara';
   serviceHiztegia: any;
+  textoFiltrado = "";
 
   public constructor(serviceHiztegia: ServiceHiztegia) {
     this.serviceHiztegia = serviceHiztegia;
   }
 
+  public cargar(): void {
+    this.palabrasAEstudiar = [...this.serviceHiztegia.hiztegia()];
+    this.cargado = true;
+    this.nPalabras = this.palabrasAEstudiar.length;
+  }
+
   public empezar(): void {
     this.empezado = true;
-    this.palabrasAEstudiar = [...this.serviceHiztegia.hiztegia()];
     this.sacarPalabra();
     this.acertado = false;
     console.log(this.modo);
+    
   }
 
 
   public reset(): void {
     this.empezado = false;
+    this.cursoSeleccionado = "Todos";
+    this.fechaSeleccionada = "Todos";
+    this.cargado = false;
   }
 
-  public filtrarPorCurso(): void {
-    this.reset();
+  public filtrar(): void {
+    this.cargar();
     if (this.cursoSeleccionado != "Todos") {
-      this.palabrasAEstudiarFiltradas = this.palabrasAEstudiar.filter(palabra => 
+      this.palabrasAEstudiar = this.palabrasAEstudiar.filter(palabra => 
         palabra.maila.toLowerCase() === this.cursoSeleccionado.toLowerCase())
       }
-      console.log(this.palabrasAEstudiarFiltradas);
-  }
-
-  public filtrarPorFecha(): void {  
-    this.reset();
-    if (this.fechaSeleccionada != "Todos") {
-      this.palabrasAEstudiarFiltradas = this.palabrasAEstudiar.filter(palabra => 
-        palabra.data.toLowerCase() === this.fechaSeleccionada.toLowerCase())
+  if (this.fechaSeleccionada != "Todos") {
+      this.palabrasAEstudiar = this.palabrasAEstudiar.filter(palabra => 
+        palabra.data.toLowerCase() == this.fechaSeleccionada.toLowerCase())
       }
-      console.log(this.palabrasAEstudiarFiltradas);
+      console.log(this.palabrasAEstudiar);
+      this.textoFiltrado = "Filtrado con éxito, ya puedes empezar";
+      this.nPalabras = this.palabrasAEstudiar.length;
+    
   }
 
   public sacarPalabra() {
