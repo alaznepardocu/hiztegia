@@ -56,12 +56,14 @@ export class Proba {
   public probar() {
     if (this.intentos > 0) {
       if(this.modo === "Euskara"){
-        this.acertado = true; 
-        this.palabraIntroducida.toLowerCase() == this.palabraSeleccionada.es.toLowerCase()
+        if( this.palabraIntroducida.toLowerCase() == this.palabraSeleccionada.es.toLowerCase()){
+          this.acertado = true;
+        }
       }
       else{
-        this.acertado = true;
-        this.palabraIntroducida.toLowerCase() == this.palabraSeleccionada.eu.toLowerCase()
+        if( this.palabraIntroducida.toLowerCase() == this.palabraSeleccionada.eu.toLowerCase()){
+          this.acertado = true;
+        }
       }
       if (this.acertado) {
         this.textoAcierto = "<strong>Muy bien</strong>";
