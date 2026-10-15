@@ -1,59 +1,59 @@
 <div class="d-flex justify-content-center mt-3 flex-column">
-<h1 class="text-primary text-center">Hiztegia</h1>
-<div class="container p-2">
-Buscador: 
-<div class="input-group mb-3">
-  <input class="form-control" type="text" [(ngModel)]="filtro" (input)="filtrar($event)">
-  <div class="input-group-append">
-    <button class="btn btn-outline-secondary" type="button" (click)="filtro = ''">X</button>
+  <h1 class="text-primary text-center">Hiztegia</h1>
+  <div class="container p-2">
+    Buscador:
+    <div class="input-group mb-3">
+      <input class="form-control" type="text" [(ngModel)]="filtro" (input)="filtrar($event)">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="filtro = ''">X</button>
+      </div>
+    </div>
   </div>
-</div>
-</div>
-<div class="container p-2">
-@if(filtro != ""){
+  <div class="container p-2">
+    @if(filtro != ""){
     <table class="table table-striped table-bordered">
-    <thead>
-    <tr>
-      <th class="col-1">EU</th>
-      <th class="col-1">ES</th>
-    </tr>
-    </thead>
-    <tbody>
-    @if(palabrasFiltradas.length > 0){
-    @for (palabra of palabrasFiltradas; track $index) {
-      <tr>
-        <td>{{palabra.eu}}</td>
-        <td>{{palabra.es}}</td>
-      </tr>
-    }}@else {
-      <tr>
-        <td colspan="2">No hay resultados</td>
-      </tr>
+      <thead>
+        <tr>
+          <th class="col-1">EU</th>
+          <th class="col-1">ES</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if(palabrasFiltradas.length > 0){
+        @for (palabra of palabrasFiltradas; track $index) {
+        <tr>
+          <td>{{palabra.eu}}</td>
+          <td>{{palabra.es}}</td>
+        </tr>
+        }}@else {
+        <tr>
+          <td colspan="2">No hay resultados</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+
     }
-    </tbody>
-  </table>
-  
-}
-@else if(serviceHiztegia.hiztegia().length > 0){
-  <table class="table table-striped table-bordered">
-    <thead>
-    <tr>
-      <th>EU</th>
-      <th>ES</th>
-    </tr>
-    </thead>
-    <tbody>
-    @for (palabra of serviceHiztegia.hiztegia(); track $index) {
-      <tr>
-        <td>{{palabra.eu}}</td>
-        <td>{{palabra.es}}</td>
-      </tr>
+    @else if(serviceHiztegia.hiztegia().length > 0){
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>EU</th>
+          <th>ES</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (palabra of serviceHiztegia.hiztegia(); track $index) {
+        <tr>
+          <td>{{palabra.eu}}</td>
+          <td>{{palabra.es}}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
     }
-    </tbody>
-  </table>
-}
-@else{
-  <p>No hay datos...</p>
-}
-</div>
+    @else{
+    <p>No hay datos...</p>
+    }
+  </div>
 </div>

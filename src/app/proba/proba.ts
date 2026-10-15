@@ -27,9 +27,9 @@ export class Proba {
 
   constructor(private serviceHiztegia: ServiceHiztegia) {
   };
-  
+
   public empezar(): void {
-        this.empezado = true;
+    this.empezado = true;
     this.palabrasAEstudiar = [...this.serviceHiztegia.hiztegia()];
     this.sacarPalabra();
     this.acertado = false;
@@ -55,13 +55,13 @@ export class Proba {
 
   public probar() {
     if (this.intentos > 0) {
-      if(this.modo === "Euskara"){
-        if( this.palabraIntroducida.toLowerCase() == this.palabraSeleccionada.es.toLowerCase()){
+      if (this.modo === "Euskara") {
+        if (this.palabraIntroducida.toLowerCase() == this.palabraSeleccionada.es.toLowerCase()) {
           this.acertado = true;
         }
       }
-      else{
-        if( this.palabraIntroducida.toLowerCase() == this.palabraSeleccionada.eu.toLowerCase()){
+      else {
+        if (this.palabraIntroducida.toLowerCase() == this.palabraSeleccionada.eu.toLowerCase()) {
           this.acertado = true;
         }
       }

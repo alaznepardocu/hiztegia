@@ -2,28 +2,30 @@
     <div class="card border-0" style="width: 30rem;">
 
         <div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" (click)="[modo='Euskara',reset() ]" checked >
-        <label class="btn btn-outline-primary" for="btnradio1">Euskara</label>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+                (click)="[modo='Euskara',reset() ]" checked>
+            <label class="btn btn-outline-primary" for="btnradio1">Euskara</label>
 
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" (click)="[modo='Gaztelaina',reset() ]">
-        <label class="btn btn-outline-primary" for="btnradio2">Gaztelaina</label>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+                (click)="[modo='Gaztelaina',reset() ]">
+            <label class="btn btn-outline-primary" for="btnradio2">Gaztelaina</label>
         </div>
         <h1 class="text-center">
             {{modo}}
         </h1>
-        
+
         @if(this.empezado){
-            <hr>
-            @if(modo === "Euskara"){
-                 <h2 class="text-center">{{palabraSeleccionada.eu}}</h2>
-       
-            }
-            @else {
-                <h2 class="text-center">{{palabraSeleccionada.es}}</h2>
-       
-            }
-        
-       
+        <hr>
+        @if(modo === "Euskara"){
+        <h2 class="text-center">{{palabraSeleccionada.eu}}</h2>
+
+        }
+        @else {
+        <h2 class="text-center">{{palabraSeleccionada.es}}</h2>
+
+        }
+
+
         @if(this.intentos > 0 && !acertado){
         <div class="input-group mb-3">
             <input type="text" class="form-control" name="erderaz" placeholder="Traducción"
@@ -37,15 +39,15 @@
         }
         <p [class]="classTextoAcierto" [innerHTML]="textoAcierto"></p>
         @if(this.intentos == 0){
-            @if(modo === "Euskara"){
-                 <p class="text-center">La solución era: {{palabraSeleccionada.es}}</p>
-       
-            }
-            @else {
-                <p class="text-center">La solución era: {{palabraSeleccionada.eu}}</p>
-       
-            }
-        
+        @if(modo === "Euskara"){
+        <p class="text-center">La solución era: {{palabraSeleccionada.es}}</p>
+
+        }
+        @else {
+        <p class="text-center">La solución era: {{palabraSeleccionada.eu}}</p>
+
+        }
+
         }
 
         <div class="d-grid gap-5">
@@ -53,17 +55,17 @@
             @if (palabrasAEstudiar.length > 0) {
             <br><button class="btn btn-warning" (click)="sacarPalabra()">Nueva Palabra</button>
             }
-            
+
 
 
         </div>
         <p class="text-center">Palabras restantes: {{palabrasAEstudiar.length}} / {{serviceHiztegia.hiztegia().length}}
         </p>
-        
+
         <button class="btn btn-danger" (click)="reset()">Reset</button>
         }
         @else {
-             <hr>
-            <button class="btn btn-danger" (click)="empezar()">Empezar</button>
+        <hr>
+        <button class="btn btn-danger" (click)="empezar()">Empezar</button>
         }
-        </div>
+    </div>

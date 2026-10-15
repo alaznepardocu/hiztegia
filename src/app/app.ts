@@ -29,7 +29,7 @@ export class App {
     this.hiztegiService.getData().subscribe((data: any) => {
       console.log(data);
       this.hiztegiService.hiztegia.set(data);
-    }); 
+    });
   }
 
 }
