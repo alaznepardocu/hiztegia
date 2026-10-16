@@ -1,9 +1,18 @@
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" routerLink="/proba">Probar</a>
         <a class="navbar-brand" routerLink="/visualizar-hiztegia">Hiztegia</a>
     </div>
 </nav>
+<main class="flex-shrink-0 justify-content-center mt-3">
+    <div class="container mb-auto">
 <router-outlet />
-
-
+    </div>
+</main>
+<footer class="footer mt-auto py-3 bg-body-tertiary fixed-bottom">
+    <div class="row px-3">
+        <div class="col-sm text-start"><a href="https://forms.gle/9uy36G5EJLcea6C17">Reportar un error</a></div>
+        <div class="col-sm text-end">v1.0 - APC - 2026</div>
+    </div>
+</footer>
