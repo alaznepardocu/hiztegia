@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-center mt-5 mx-3">
+    <div class="container w-80 text-center">
+    
+    <h1>EN CONSTRUCCIÓN</h1>
+    <br>
+    @if(!this.cargado){
+    <button class="btn btn-danger" (click)="cargar()">Cargar Aditzak</button>
+    }
+    @else{
+        <div class="card">
+
+            @for(aditza of serviceHiztegia.aditzTrikoak(); track $index){
+                <input class="form-check-input" (change)="onChange(aditza, $event.target.checked)"name="{{ aditza }}" type="checkbox" id="{{aditza}}">
+                <label class="form-check-label" for="{{aditza}}">
+                    {{aditza}}
+                </label>
+
+            }
+            </div>
+            <h2>Aditzak a estudiar</h2>
+
+            @for(aditza of aditzakAEstudiar; track $index){
+                    {{aditza}}
+            }
+            
+            
+   
+    }
+
+    </div>
+    
+    
+</div>

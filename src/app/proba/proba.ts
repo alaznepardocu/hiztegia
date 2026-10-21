@@ -119,7 +119,11 @@ cursos: any;
       }
       else {
         this.intentos--;
-        this.textoAcierto = "Intentalo de nuevo<br>Intentos restantes: " + this.intentos;
+        this.textoAcierto = "";
+        if(this.intentos > 0){
+          this.textoAcierto = "Intentalo de nuevo";
+        }
+        this.textoAcierto += "<br>Intentos restantes: " + this.intentos;
         this.classTextoAcierto = "text-center text-info";
       }
     }

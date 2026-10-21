@@ -1,9 +1,29 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark justify-content-between">
+        <div class="container-fluid row w-100 px-5 mx-0">
+            <div class="nav col-2 pl-2">
+                <a class="navbar-brand text-bold" href="#">APC Hiztegia</a>
+            </div>
+            <div class="nav text-center col-8 d-flex-row justify-content-around px-4">
+                <div><a class="navbar-brand col" routerLink="/proba">Probar</a></div>
+                <div><a class="navbar-brand col" routerLink="/visualizar-hiztegia">Hiztegia</a></div>
+                <div><a class="navbar-brand col" routerLink="/aditzak">Aditzak</a></div> 
+            </div>
+            <div class="nav navbar-right navbar-text col-2 d-flex justify-content-end">
+                <a class="navbar-brand" routerLink="/info">Info</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<main class="container-fluid body-content py-5">
+    <router-outlet />
+</main>
+<footer class="footer bg-body-tertiary border-top py-3 mt-auto">
     <div class="container">
-        <a class="navbar-brand" routerLink="/proba">Probar</a>
-        <a class="navbar-brand" routerLink="/visualizar-hiztegia">Hiztegia</a>
+        <div class="container d-flex justify-content-between small text-body-secondary">
+            <div class="col-sm text-start"><a href="https://forms.gle/9uy36G5EJLcea6C17">Reportar un error</a></div>
+            <div class="col-sm text-start">v1.0 - APC - 2026</div>
+
+        </div>
     </div>
-</nav>
-<router-outlet />
-
-
+</footer>

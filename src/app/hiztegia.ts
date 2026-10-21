@@ -4,3 +4,10 @@ export interface Hitz {
     maila: string,
     data: string
 }
+
+export interface Trinkoa {
+    konjugaioa: string;
+    pertsona:   string;
+    aditza:     string;
+    denbora:    string;
+}
