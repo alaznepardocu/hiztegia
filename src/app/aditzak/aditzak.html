@@ -1,33 +1,103 @@
 <div class="d-flex justify-content-center mt-5 mx-3">
     <div class="container w-80 text-center">
-    
-    <h1>EN CONSTRUCCIÓN</h1>
-    <br>
-    @if(!this.cargado){
-    <button class="btn btn-danger" (click)="cargar()">Cargar Aditzak</button>
-    }
-    @else{
-        <div class="card">
 
-            @for(aditza of serviceHiztegia.aditzTrikoak(); track $index){
-                <input class="form-check-input" (change)="onChange(aditza, $event.target.checked)"name="{{ aditza }}" type="checkbox" id="{{aditza}}">
-                <label class="form-check-label" for="{{aditza}}">
-                    {{aditza}}
-                </label>
+        <h1>EN CONSTRUCCIÓN</h1>
+        <br>
+        @if(!this.cargado){
+        <button class="btn btn-danger" (click)="cargar()">Cargar Aditzak</button>
+        }
+        @else{
+            @if(!empezado){
 
-            }
-            </div>
+            
+        <div class="card p-3">
             <h2>Aditzak a estudiar</h2>
+            <div class="d-flex flex-row justify-content-center  py-2">
 
-            @for(aditza of aditzakAEstudiar; track $index){
-                    {{aditza}}
+                @for(aditza of serviceHiztegia.aditzTrikoak(); track $index){
+                <div class="p-2">
+                    <input class="form-check-input" (change)="onChange(aditza, $event.target.checked)"
+                        name="{{ aditza }}" type="checkbox" id="{{aditza}}">
+                    <label class="form-check-label" for="{{aditza}}">
+                        {{aditza}}
+                    </label>
+                </div>
+
+                }
+            </div>
+            <h2>Denborak</h2>
+            <div class="d-flex flex-row justify-content-center  py-2">
+                <div class="p-2">
+                    <input type="checkbox" [(ngModel)]="orainaldia">
+                    <label for="orainaldia">orainaldia</label>
+                </div>
+                <div class="p-2">
+                    <input type="checkbox" [(ngModel)]="lehenaldia">
+                    <label for="lehenaldia">lehenaldia</label>
+                </div>
+
+            </div>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-warning" style="width:50%" (click)="filtrar()">Filtrar</button>
+            </div>
+            {{arrayAditzak}}
+            <p>{{textoError}}</p>
+            @if(filtrado){
+                <button class="btn btn-danger w-100" (click)="empezar()">Empezar</button>
             }
             
-            
-   
+        </div>
+        }
+
+
+
+        
+        @else {
+            <div class="container w-100">
+        </div>
+        <hr>
+        <div class="card p-3">
+            <p class="fs-2 text-center pb-2">
+                {{palabraSeleccionada.pertsona}} ____________ ({{palabraSeleccionada.aditza}})({{palabraSeleccionada.denbora}})
+            </p>
+
+
+            @if(this.intentos > 0 && !acertado){
+            <div class="input-group mb-3 w-100">
+                <input type="text" class="form-control" name="erderaz" placeholder="aditza"
+                    [(ngModel)]="palabraIntroducida">
+                @if(!acertado){
+                <button class="btn btn-warning" (click)="probar()">Intenta</button>
+                <button class="btn btn-outline-secondary" (click)="palabraIntroducida=''">X</button>
+                }
+            </div>
+
+            }
+            <p [class]="classTextoAcierto" [innerHTML]="textoAcierto"></p>
+            @if(this.intentos == 0){
+                <p class="fs-4 text-center">La solución era:<br><b>
+                    {{palabraSeleccionada.konjugaioa}}
+</b></p>
+            }
+        </div>
+        <hr>
+        <div class="d-grid gap-between-5">
+
+            @if (trinkosAEstudiar.length > 0) {
+            <br><button class="btn btn-secondary" (click)="sacarPalabra()">Nueva Palabra</button>
+            }
+
+
+
+        
+        <p class="text-center">Palabras restantes: {{trinkosAEstudiar.length}} / {{nPalabras}}
+        </p>
+        <button class="btn btn-danger " (click)="reset()">Reset</button>
+        </div>
+        }
     }
 
     </div>
-    
-    
+
+
 </div>

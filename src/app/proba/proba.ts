@@ -49,7 +49,7 @@ cursos: any;
     this.empezado = true;
     this.sacarPalabra();
     this.acertado = false;
-    console.log(this.modo);
+    //console.log(this.modo);
     
   }
 
@@ -59,6 +59,7 @@ cursos: any;
     this.cursoSeleccionado = "Todos";
     this.fechaSeleccionada = "Todos";
     this.cargado = false;
+    this.textoFiltrado = "";
   }
 
   public filtrar(): void {
@@ -71,7 +72,7 @@ cursos: any;
       this.palabrasAEstudiar = this.palabrasAEstudiar.filter(palabra => 
         palabra.data.toLowerCase() == this.fechaSeleccionada.toLowerCase())
       }
-      console.log(this.palabrasAEstudiar);
+      // console.log(this.palabrasAEstudiar);
       this.textoFiltrado = "Filtrado con éxito, ya puedes empezar";
       this.nPalabras = this.palabrasAEstudiar.length;
     
@@ -79,7 +80,6 @@ cursos: any;
 
   public sacarPalabra() {
     var maximo: number = this.palabrasAEstudiar.length;
-    console.log(maximo);
     var indice: number = Math.trunc(Math.random() * this.palabrasAEstudiar.length);
     this.palabraSeleccionada = this.palabrasAEstudiar[indice]
     this.intentos = 3;
