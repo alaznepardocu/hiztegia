@@ -21,8 +21,8 @@
             "assets": [
               {
                 "glob": "_redirects",
-  "input": "src",
-  "output": "/"
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": [

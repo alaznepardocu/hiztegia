@@ -1,20 +1,21 @@
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark justify-content-between">
-        <div class="container-fluid row w-100 px-5 mx-0">
-            <div class="nav col-2 pl-2">
-                <a class="navbar-brand text-bold" href="#">APC Hiztegia</a>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark px-5">
+    <div class="container-fluid">
+        <a class="navbar-brand text-bold pr-5" href="#">APC Hiztegia</a>
+        <button class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navHiztegia" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navHiztegia" [ngbCollapse]="isCollapsed">
+            <div class="navbar-nav" (click)="isCollapsed = true">
+                <a class="nav-item navbar-brand active" routerLink="/proba">Probar </a>
+                <a class="nav-item navbar-brand" routerLink="/visualizar-hiztegia">Hiztegia</a>
+                <a class="nav-item navbar-brand" routerLink="/aditzak">Aditzak</a>
+                <a class="nav-item navbar-brand" routerLink="/info">Info</a>
             </div>
-            <div class="nav text-center col-8 d-flex-row justify-content-around px-4">
-                <div><a class="navbar-brand col" routerLink="/proba">Probar</a></div>
-                <div><a class="navbar-brand col" routerLink="/visualizar-hiztegia">Hiztegia</a></div>
-                <div><a class="navbar-brand col" routerLink="/aditzak">Aditzak</a></div> 
-            </div>
-            <div class="nav navbar-right navbar-text col-2 d-flex justify-content-end">
-                <a class="navbar-brand" routerLink="/info">Info</a>
-            </div>
+
         </div>
-    </nav>
-</header>
+    </div>
+</nav>
 <main class="container-fluid body-content py-5">
     <router-outlet />
 </main>

@@ -102,7 +102,7 @@ cursos: any;
         }
       }
       if (this.acertado) {
-        this.textoAcierto = "<strong>Muy bien</strong>";
+        this.textoAcierto = "<strong>Oso ondo!</strong>";
         this.classTextoAcierto = "text-center  text-success fw-bold fs-2";
         this.palabrasAEstudiar.splice(this.palabrasAEstudiar.indexOf(this.palabraSeleccionada), 1);
         this.palabraIntroducida = "";
@@ -113,7 +113,7 @@ cursos: any;
           data: ''
         };
         if (this.palabrasAEstudiar.length === 0) {
-          this.textoAcierto = "¡Felicidades! Has adivinado todas las palabras.";
+          this.textoAcierto = "Zorionak!<br> Has adivinado todas las palabras.";
           this.classTextoAcierto = "text-center text-success fw-bold fs-2";
         }
       }

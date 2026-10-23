@@ -17,7 +17,7 @@ export class Aditzak {
   acertado = false;
   serviceHiztegia: any;
   listaTrinkoakCompleta: Trinkoa[] = [];
-  arrayAditzak: any = [];
+  arrayAditzak: string[] = [];
   trinkosAEstudiar: Trinkoa[] = [];
   orainaldia = true;
   lehenaldia = true;
@@ -65,21 +65,17 @@ export class Aditzak {
     console.log(this.arrayAditzak)
     this.textoError = "";
     if (this.arrayAditzak.length > 0) {
-      this.trinkosAEstudiar = this.listaTrinkoakCompleta;
+      this.trinkosAEstudiar = [...this.listaTrinkoakCompleta];
 
       this.trinkosAEstudiar = this.trinkosAEstudiar.filter(aditza =>
         this.arrayAditzak.includes(aditza.aditza))
 
-      if (!this.lehenaldia) {
-        this.trinkosAEstudiar = this.trinkosAEstudiar.filter(aditza =>
-          aditza.aditza === "orainaldia")
-      }
-      if (!this.orainaldia) {
-        this.trinkosAEstudiar = this.trinkosAEstudiar.filter(aditza =>
-          aditza.aditza === "lehenaldia")
-      }
+      this.trinkosAEstudiar = this.trinkosAEstudiar.filter(aditza =>
+        (this.orainaldia && aditza.denbora === "orainaldia") ||
+        (this.lehenaldia && aditza.denbora === "lehenaldia"))
 
       this.textoError = "Filtrado con éxito";
+      this.filtrado = true;
 
     }
     else {
@@ -87,7 +83,7 @@ export class Aditzak {
     }
 
     console.log(this.trinkosAEstudiar)
-    this.filtrado = true;
+    
     this.nPalabras = this.trinkosAEstudiar.length;
 
 
@@ -105,10 +101,12 @@ export class Aditzak {
     public reset(): void {
     this.empezado = false;
     this.cargado = false;
+    this.arrayAditzak = [];
+    this.filtrado=false;
+    this.textoError ="";
   }
 
   public sacarPalabra() {
-    var maximo: number = this.trinkosAEstudiar.length;
     var indice: number = Math.trunc(Math.random() * this.trinkosAEstudiar.length);
     this.palabraSeleccionada = this.trinkosAEstudiar[indice]
     this.intentos = 3;
@@ -125,7 +123,7 @@ export class Aditzak {
       }
     }
     if (this.acertado) {
-      this.textoAcierto = "<strong>Muy bien</strong>";
+      this.textoAcierto = "<strong>Oso ondo!</strong>";
       this.classTextoAcierto = "text-center  text-success fw-bold fs-2";
       this.trinkosAEstudiar.splice(this.trinkosAEstudiar.indexOf(this.palabraSeleccionada), 1);
       this.palabraIntroducida = "";
@@ -136,7 +134,7 @@ export class Aditzak {
         denbora: ''
       };
       if (this.trinkosAEstudiar.length === 0) {
-        this.textoAcierto = "¡Felicidades! Has adivinado todas las palabras.";
+        this.textoAcierto = "Zorionak!<br> Has adivinado todas las palabras.";
         this.classTextoAcierto = "text-center text-success fw-bold fs-2";
       }
     }
@@ -152,6 +150,5 @@ export class Aditzak {
   }
 
 }
-
 
 

@@ -1,7 +1,5 @@
-<div class="d-flex justify-content-center mt-5 mx-3">
+<div class="d-flex justify-content-center mx-3">
     <div class="container w-80 text-center">
-
-        <h1>EN CONSTRUCCIÓN</h1>
         <br>
         @if(!this.cargado){
         <button class="btn btn-danger" (click)="cargar()">Cargar Aditzak</button>
@@ -12,28 +10,36 @@
             
         <div class="card p-3">
             <h2>Aditzak a estudiar</h2>
-            <div class="d-flex flex-row justify-content-center  py-2">
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-2 py-2 align-center justify-content-center">
 
-                @for(aditza of serviceHiztegia.aditzTrikoak(); track $index){
-                <div class="p-2">
-                    <input class="form-check-input" (change)="onChange(aditza, $event.target.checked)"
-                        name="{{ aditza }}" type="checkbox" id="{{aditza}}">
-                    <label class="form-check-label" for="{{aditza}}">
-                        {{aditza}}
-                    </label>
+                @for(aditza of serviceHiztegia.aditzTrikoak(); track aditza; let index = $index){
+                <div class="col">
+                    <div class="form-check d-flex align-items-center justify-content-center gap-2 border rounded p-2 h-100">
+                        <input class="form-check-input m-0 flex-shrink-0"
+                            (change)="onChange(aditza, $event.target.checked)"
+                            name="{{ aditza }}" type="checkbox" id="aditza-{{index}}">
+                        <label class="form-check-label text-center" for="aditza-{{index}}">
+                            {{aditza}}
+                        </label>
+                    </div>
                 </div>
 
                 }
             </div>
             <h2>Denborak</h2>
-            <div class="d-flex flex-row justify-content-center  py-2">
-                <div class="p-2">
-                    <input type="checkbox" [(ngModel)]="orainaldia">
-                    <label for="orainaldia">orainaldia</label>
+            <div class="row row-cols-2 justify-content-center  py-2">
+                <div class="col">
+                    <div class="form-check d-flex align-items-center justify-content-center gap-2 border rounded p-2 h-100">
+                        <input type="checkbox" class=" m-0 flex-shrink-0" [(ngModel)]="orainaldia">
+                        <label for="orainaldia">orainaldia</label>
+                    </div>
                 </div>
-                <div class="p-2">
+                <div class="col">
+                    <div class="form-check d-flex align-items-center justify-content-center gap-2 border rounded p-2 h-100">
                     <input type="checkbox" [(ngModel)]="lehenaldia">
                     <label for="lehenaldia">lehenaldia</label>
+                    </div>
+
                 </div>
 
             </div>
@@ -53,24 +59,22 @@
 
         
         @else {
-            <div class="container w-100">
-        </div>
-        <hr>
         <div class="card p-3">
+            @if(!acertado){
             <p class="fs-2 text-center pb-2">
                 {{palabraSeleccionada.pertsona}} ____________ ({{palabraSeleccionada.aditza}})({{palabraSeleccionada.denbora}})
             </p>
+            }
 
 
             @if(this.intentos > 0 && !acertado){
-            <div class="input-group mb-3 w-100">
-                <input type="text" class="form-control" name="erderaz" placeholder="aditza"
-                    [(ngModel)]="palabraIntroducida">
+            <form class="input-group mb-3 w-100" (ngSubmit)="probar()">
+                <input type="text" class="form-control" name="erderaz" placeholder="aditza" [(ngModel)]="palabraIntroducida">
                 @if(!acertado){
-                <button class="btn btn-warning" (click)="probar()">Intenta</button>
-                <button class="btn btn-outline-secondary" (click)="palabraIntroducida=''">X</button>
+                <button class="btn btn-warning" type="submit">Saiatu</button>
+                <button class="btn btn-outline-secondary" type="button" (click)="palabraIntroducida=''">X</button>
                 }
-            </div>
+            </form>
 
             }
             <p [class]="classTextoAcierto" [innerHTML]="textoAcierto"></p>
@@ -84,7 +88,7 @@
         <div class="d-grid gap-between-5">
 
             @if (trinkosAEstudiar.length > 0) {
-            <br><button class="btn btn-secondary" (click)="sacarPalabra()">Nueva Palabra</button>
+            <br><button class="btn btn-secondary" (click)="sacarPalabra()">Beste Hitz Bat</button>
             }
 
 
