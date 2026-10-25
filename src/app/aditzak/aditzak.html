@@ -70,10 +70,9 @@
             @if(this.intentos > 0 && !acertado){
             <form class="input-group mb-3 w-100" (ngSubmit)="probar()">
                 <input type="text" class="form-control" name="erderaz" placeholder="aditza" [(ngModel)]="palabraIntroducida">
-                @if(!acertado){
+            
                 <button class="btn btn-warning" type="submit">Saiatu</button>
                 <button class="btn btn-outline-secondary" type="button" (click)="palabraIntroducida=''">X</button>
-                }
             </form>
 
             }

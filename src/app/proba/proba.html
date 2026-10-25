@@ -13,40 +13,41 @@
         <hr>
         <div class="card p-3">
             <p class="fs-2 text-center pb-2">
-            @if(modo === "Euskara"){
-            {{palabraSeleccionada.eu}}
+                @if(modo === "Euskara"){
+                {{palabraSeleccionada.eu}}
 
-            }
-            @else {
-            {{palabraSeleccionada.es}}
-               
-            }
+                }
+                @else {
+                {{palabraSeleccionada.es}}
+
+                }
             </p>
 
 
             @if(this.intentos > 0 && !acertado){
-            <div class="input-group mb-3 w-100">
-                <input type="text" class="form-control" name="erderaz" placeholder="Traducción"
+            <form class="input-group mb-3 w-100" (ngSubmit)="probar()">
+                <input type="text" class="form-control" name="erderaz" placeholder="aditza"
                     [(ngModel)]="palabraIntroducida">
-                @if(!acertado){
-                <button class="btn btn-warning" (click)="probar()">Saiatu</button>
-                <button class="btn btn-outline-secondary" (click)="palabraIntroducida=''">X</button>
-                }
-            </div>
+
+                <button class="btn btn-warning" type="submit">Saiatu</button>
+                <button class="btn btn-outline-secondary" type="button" (click)="palabraIntroducida=''">X</button>
+            </form>
+
+
 
             }
             <p [class]="classTextoAcierto" [innerHTML]="textoAcierto"></p>
             @if(this.intentos == 0){
-                <p class="fs-4 text-center">La solución era:<br><b>
-            @if(modo === "Euskara"){
-             {{palabraSeleccionada.es}}
+            <p class="fs-4 text-center">La solución era:<br><b>
+                    @if(modo === "Euskara"){
+                    {{palabraSeleccionada.es}}
 
-            }
-            @else {
-            {{palabraSeleccionada.eu}}
-                
-            }
-</b></p>
+                    }
+                    @else {
+                    {{palabraSeleccionada.eu}}
+
+                    }
+                </b></p>
             }
         </div>
         <hr>
@@ -58,10 +59,10 @@
 
 
 
-        
-        <p class="text-center">Palabras restantes: {{palabrasAEstudiar.length}} / {{nPalabras}}
-        </p>
-        <button class="btn btn-danger " (click)="reset()">Reset</button>
+
+            <p class="text-center">Palabras restantes: {{palabrasAEstudiar.length}} / {{nPalabras}}
+            </p>
+            <button class="btn btn-danger " (click)="reset()">Reset</button>
         </div>
         }
         @else {
@@ -75,9 +76,9 @@
                     (click)="[modo='Gaztelaina']">
                 <label class="btn btn-outline-primary" for="btnradio2">Gaztelaina</label>
             </div>
-            <div class="row px-5">
-                <div class="form-group row col-8 justify-content-between p-2">
-                    <div class="col">
+            <div class="row row-cols-2 justify-content-center  py-2">
+                <div class="form-group row col-6 justify-content-between p-2">
+                    <div class="form-check d-flex align-items-center justify-content-center gap-2  p-2">
                         <b>Curso: </b>
                         <select id="curso" name="curso" [(ngModel)]="cursoSeleccionado">
                             @for(curso of serviceHiztegia.cursos(); track $index){
@@ -86,7 +87,7 @@
                             </option> }
                         </select>
                     </div>
-                    <div class="col">
+                    <div class="form-check d-flex align-items-center justify-content-center gap-2  p-2">
                         <b>Fecha: </b>
                         <select id="fecha" name="fecha" [(ngModel)]="fechaSeleccionada">
                             @for(fecha of serviceHiztegia.fechas(); track $index){
@@ -96,18 +97,18 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-4 d-flex justify-content-between">
+                <div class="col-6 col-lg-6 d-flex justify-content-between">
                     <button class="btn btn-warning" style="width:100%" (click)="filtrar()">Filtrar</button>
                 </div>
 
             </div>
             <div class="text-center py-2">
-            @if(textoFiltrado != ""){
-            <p >{{textoFiltrado}}</p>
-            }
-            
+                @if(textoFiltrado != ""){
+                <p>{{textoFiltrado}}</p>
+                }
 
-            <p>Número de palabras: {{nPalabras}}</p>
+
+                <p>Número de palabras: {{nPalabras}}</p>
             </div>
             <button class="btn btn-danger w-100" (click)="empezar()">Empezar</button>
         </div>
