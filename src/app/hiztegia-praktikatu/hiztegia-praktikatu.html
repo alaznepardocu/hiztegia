@@ -26,7 +26,7 @@
 
             @if(this.intentos > 0 && !acertado){
             <form class="input-group mb-3 w-100" (ngSubmit)="probar()">
-                <input type="text" class="form-control" name="erderaz" placeholder="aditza"
+                <input type="text" class="form-control" name="erderaz" placeholder="hitz"
                     [(ngModel)]="palabraIntroducida">
 
                 <button class="btn btn-warning" type="submit">Saiatu</button>
@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 <div class="col-6 col-lg-6 d-flex justify-content-between">
-                    <button class="btn btn-warning" style="width:100%" (click)="filtrar()">Filtrar</button>
+                    <button class="btn btn-warning" style="width:100%" (click)="filtrar()">Iragazi</button>
                 </div>
 
             </div>
@@ -110,7 +110,7 @@
 
                 <p>Número de palabras: {{nPalabras}}</p>
             </div>
-            <button class="btn btn-danger w-100" (click)="empezar()">Empezar</button>
+            <button class="btn btn-danger w-100" (click)="empezar()">Hasi</button>
         </div>
         }
 

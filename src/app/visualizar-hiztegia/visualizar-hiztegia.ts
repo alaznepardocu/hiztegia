@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ServiceHiztegia } from '../hiztegiService';
-import { Hitz } from '../hiztegia';
 
 @Component({
   imports: [CommonModule, FormsModule],
@@ -11,21 +10,24 @@ import { Hitz } from '../hiztegia';
   templateUrl: './visualizar-hiztegia.html',
 })
 export class VisualizarHiztegia {
+  public readonly cursoSeleccionado = signal('Todos');
+  public readonly fechaSeleccionada = signal('Todos');
+  public readonly filtro = signal('');
+  public readonly palabrasFiltradas = computed(() => {
+    const curso = this.cursoSeleccionado().toLowerCase();
+    const fecha = this.fechaSeleccionada().toLowerCase();
+    const filtro = this.filtro().trim().toLowerCase();
 
-  constructor(private serviceHiztegia: ServiceHiztegia) {
+    return this.serviceHiztegia.hiztegia().filter(palabra =>
+      (curso === 'todos' || palabra.maila.toLowerCase() === curso) &&
+      (fecha === 'todos' || palabra.data.toLowerCase() === fecha) &&
+      (!filtro ||
+        palabra.es.toLowerCase().includes(filtro) ||
+        palabra.eu.toLowerCase().includes(filtro) ||
+        palabra.maila.toLowerCase().includes(filtro) ||
+        palabra.data.toLowerCase().includes(filtro))
+    );
+  });
 
-  }
-
-  palabrasFiltradas: Hitz[] = [];
-  filtro = "";
-
-  public filtrar(event: Event) {
-    this.palabrasFiltradas = this.serviceHiztegia.hiztegia().filter(palabra =>
-      palabra.es.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      palabra.eu.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      palabra.maila.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      palabra.data.toLowerCase().includes(this.filtro.toLowerCase())
-    )
-  }
-
+  constructor(public readonly serviceHiztegia: ServiceHiztegia) {}
 }

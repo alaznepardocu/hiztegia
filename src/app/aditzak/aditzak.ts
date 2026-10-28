@@ -85,10 +85,8 @@ export class Aditzak {
     console.log(this.trinkosAEstudiar)
     
     this.nPalabras = this.trinkosAEstudiar.length;
-
-
-
   }
+
 
   public empezar(): void {
     this.empezado = true;

@@ -6,8 +6,9 @@ export interface Hitz {
 }
 
 export interface Trinkoa {
-    konjugaioa: string;
-    pertsona:   string;
-    aditza:     string;
-    denbora:    string;
+    konjugaioa: string,
+    pertsona:   string,
+    aditza:     string,
+    denbora:    string,
+    objektu?: string
 }

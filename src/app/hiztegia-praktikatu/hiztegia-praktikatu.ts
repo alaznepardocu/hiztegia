@@ -6,11 +6,11 @@ import { FormControl, FormsModule, Validators } from '@angular/forms';
 
 @Component({
   imports: [CommonModule, FormsModule, FormsModule],
-  selector: 'app-proba',
-  styleUrl: './proba.css',
-  templateUrl: './proba.html',
+  selector: 'app-hiztegia-praktikatu',
+  styleUrl: './hiztegia-praktikatu.css',
+  templateUrl: './hiztegia-praktikatu.html',
 })
-export class Proba {
+export class HiztegiaPraktikatu {
 cursos: any;
   palabraSeleccionada: Hitz = {
     eu: '',
@@ -68,7 +68,7 @@ cursos: any;
       this.palabrasAEstudiar = this.palabrasAEstudiar.filter(palabra => 
         palabra.maila.toLowerCase() === this.cursoSeleccionado.toLowerCase())
       }
-  if (this.fechaSeleccionada != "Todos") {
+    if (this.fechaSeleccionada != "Todos") {
       this.palabrasAEstudiar = this.palabrasAEstudiar.filter(palabra => 
         palabra.data.toLowerCase() == this.fechaSeleccionada.toLowerCase())
       }
