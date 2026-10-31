@@ -66,7 +66,7 @@
         </div>
         }
         @else {
-        <div class="card px-2 py-5">
+        <div class="card px-2 py-4">
             <div class="btn-group mb-3 w-100" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
                     (click)="[modo='Euskara']" checked>
@@ -102,15 +102,13 @@
                 </div>
 
             </div>
-            <div class="text-center py-2">
-                @if(textoFiltrado != ""){
-                <p>{{textoFiltrado}}</p>
-                }
-
-
-                <p>Número de palabras: {{nPalabras}}</p>
-            </div>
-            <button class="btn btn-danger w-100" (click)="empezar()">Hasi</button>
+            <p class="text-center pt-2 mb-0">Número de palabras: {{nPalabras}}</p>
+            @if(nPalabras > 0){
+                <p class="text-success text-center">{{textoFiltrado}}</p>
+                <button class="btn btn-danger w-100" (click)="empezar()">Hasi</button>
+            }@else {
+                <p class="text-danger text-center">No hay palabras con esos filtros</p>
+            }
         </div>
         }
 

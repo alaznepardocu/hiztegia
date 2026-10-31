@@ -7,7 +7,7 @@ import { HiztegiaPraktikatu } from './hiztegia-praktikatu/hiztegia-praktikatu';
 export const routes: Routes = [
   { path: 'hiztegia-praktikatu', component: HiztegiaPraktikatu, title: 'Hiztegia Praktikatu' },
   { path: 'visualizar-hiztegia', component: VisualizarHiztegia, title: 'Hiztegia' },
-  { path: 'aditzak', component: Aditzak, title: 'Aditzak' },
+  { path: 'aditzak-praktikatu', component: Aditzak, title: 'Aditzak Praktikatu' },
   { path: 'info', component: Info, title: 'Info' },
   { path: '**', redirectTo: '/info' },
 ];

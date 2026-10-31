@@ -20,7 +20,7 @@ export class App {
       //  console.log(data);
       this.hiztegiService.hiztegia.set(data);
       this.hiztegiService.cursos.set(this.hiztegiService.cursos().concat(Array.from(new Set(this.hiztegiService.hiztegia().map((palabra: { maila: any; }) => palabra.maila)))));
-      this.hiztegiService.fechas.set(this.hiztegiService.fechas().concat(Array.from(new Set(this.hiztegiService.hiztegia().map((palabra: { data: any; }) => palabra.data)))));
+      this.hiztegiService.fechas.set(this.hiztegiService.fechas().concat(Array.from(new Set(this.hiztegiService.hiztegia().map((palabra: { data: any; }) => palabra.data))).reverse()));
       // console.log(this.hiztegiService.cursos());
       //  console.log(this.hiztegiService.fechas());
 

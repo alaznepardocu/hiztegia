@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ServiceHiztegia } from '../hiztegiService';
 import { Trinkoa } from '../hiztegia';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
@@ -46,11 +46,6 @@ export class Aditzak {
     this.cargado = true;
   }
 
-  public mostrarSeleccionados(): void {
-    console.log(this.arrayAditzak)
-  }
-
-
   public onChange(aditza: string, isChecked: boolean) {
     if (isChecked) {
       this.arrayAditzak.push(aditza);
@@ -62,7 +57,7 @@ export class Aditzak {
 
 
   public filtrar() {
-    console.log(this.arrayAditzak)
+    //console.log(this.arrayAditzak)
     this.textoError = "";
     if (this.arrayAditzak.length > 0) {
       this.trinkosAEstudiar = [...this.listaTrinkoakCompleta];
@@ -82,7 +77,7 @@ export class Aditzak {
       this.textoError = "No se han seleccionado aditzak";
     }
 
-    console.log(this.trinkosAEstudiar)
+    //console.log(this.trinkosAEstudiar)
     
     this.nPalabras = this.trinkosAEstudiar.length;
   }

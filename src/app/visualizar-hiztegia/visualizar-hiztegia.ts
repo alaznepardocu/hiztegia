@@ -23,9 +23,7 @@ export class VisualizarHiztegia {
       (fecha === 'todos' || palabra.data.toLowerCase() === fecha) &&
       (!filtro ||
         palabra.es.toLowerCase().includes(filtro) ||
-        palabra.eu.toLowerCase().includes(filtro) ||
-        palabra.maila.toLowerCase().includes(filtro) ||
-        palabra.data.toLowerCase().includes(filtro))
+        palabra.eu.toLowerCase().includes(filtro))
     );
   });
 
