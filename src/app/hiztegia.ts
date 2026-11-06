@@ -10,5 +10,14 @@ export interface Trinkoa {
     pertsona:   string,
     aditza:     string,
     denbora:    string,
-    objektu?: string
+    objektu?: string,
 }
+
+export interface NorNork {
+    aditza:    string,
+    konjugaioa: string,
+    nor:        string,
+    nork:       string,
+    denbora:    string
+}
+

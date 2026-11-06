@@ -33,5 +33,17 @@ export class App {
       // console.log(this.hiztegiService.aditzTrikoak());
 
     });
+
+    this.hiztegiService.getAuxiliarrak().subscribe((data: any) => {
+      //console.log(data);
+      this.hiztegiService.auxiliarrak.set(data);
+      this.hiztegiService.aditzAuxiliarrak.set((Array.from(new Set(this.hiztegiService.auxiliarrak().map((aditza: { aditza: any; }) => aditza.aditza)))));
+      this.hiztegiService.auxiliarrakDisponibles.set((Array.from(new Set(this.hiztegiService.auxiliarrak().map((aditza: { aditza: any; }) => aditza.aditza)))));
+      
+      //console.log(this.hiztegiService.auxiliarrakDisponibles());
+
+    });
+
+    
   }
 }

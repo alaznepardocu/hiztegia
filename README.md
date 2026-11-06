@@ -1,58 +1,59 @@
-# APC Hiztegia
+# JsonPostUsers
 
-Aplicación web para consultar y practicar vocabulario en euskera y conjugaciones verbales. Está pensada para repasar las palabras trabajadas en clase y practicar a tu ritmo.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.7.
 
-## Funcionalidades
+## Development server
 
-- **Hiztegia Praktikatu:** practica traducciones entre euskera y castellano. Puedes elegir el idioma de las preguntas y filtrar por curso y fecha.
-- **Hiztegia:** consulta y busca vocabulario en ambos idiomas, filtrando por palabra, curso o fecha.
-- **Aditzak Praktikatu:** practica verbos trinkos en presente (*orainaldia*) y pasado (*lehenaldia*), seleccionando los verbos y tiempos que quieras repasar.
-- **Info:** guía rápida de uso integrada en la aplicación.
-
-Los ejercicios permiten hasta tres intentos por respuesta. Las palabras y ejercicios pendientes vuelven a aparecer hasta que se aciertan.
-
-## Tecnologías
-
-- Angular
-- TypeScript
-- Bootstrap
-- Datos de vocabulario servidos desde JSONBin
-
-## Requisitos
-
-- Node.js y npm
-
-## Instalación y desarrollo
-
-Clona el repositorio e instala las dependencias:
+To start a local development server, run:
 
 ```bash
-git clone https://github.com/alaznepardocu/hiztegia.git
-cd hiztegia
-npm install
+ng serve
 ```
 
-Inicia el servidor de desarrollo:
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Code scaffolding
+
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
 ```bash
-npm start
+ng generate component component-name
 ```
 
-Abre [http://localhost:4200](http://localhost:4200). La aplicación se recarga automáticamente al modificar el código. Para cargar el vocabulario es necesaria una conexión a Internet.
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-## Comandos disponibles
+```bash
+ng generate --help
+```
 
-| Comando | Descripción |
-| --- | --- |
-| `npm start` | Inicia el servidor de desarrollo. |
-| `npm run build` | Genera la compilación de producción en `dist/jsonPostUsers/browser/`. |
-| `npm test` | Ejecuta las pruebas con Angular y Vitest. |
-| `npm run watch` | Compila en modo desarrollo y observa los cambios. |
+## Building
 
-## Despliegue
+To build the project run:
 
-El proyecto incluye configuración para Netlify. La configuración ejecuta `npm run build` y publica `dist/jsonPostUsers/browser`.
+```bash
+ng build
+```
 
-## Contribuir
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-Si encuentras un error o tienes una sugerencia, puedes abrir una incidencia en GitHub. También puedes utilizar el enlace para reportar errores disponible en el pie de página de la aplicación.
+## Running unit tests
+
+To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+
+```bash
+ng test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

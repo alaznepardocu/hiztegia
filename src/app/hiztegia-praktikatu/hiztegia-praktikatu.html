@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center mt-5 mx-3">
+<div class="d-flex justify-content-center mx-3">
     @if(!this.cargado){
     <button class="btn btn-danger" (click)="cargar()">Cargar Hiztegia</button>
     }
@@ -37,6 +37,7 @@
 
             }
             <p [class]="classTextoAcierto" [innerHTML]="textoAcierto"></p>
+            <p class="text-center fs-5">{{solucion}}</p>
             @if(this.intentos == 0){
             <p class="fs-4 text-center">La solución era:<br><b>
                     @if(modo === "Euskara"){
@@ -66,7 +67,7 @@
         </div>
         }
         @else {
-        <div class="card px-2 py-4">
+        <div class="card px-2 py-5">
             <div class="btn-group mb-3 w-100" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
                     (click)="[modo='Euskara']" checked>
@@ -102,13 +103,15 @@
                 </div>
 
             </div>
-            <p class="text-center pt-2 mb-0">Número de palabras: {{nPalabras}}</p>
-            @if(nPalabras > 0){
+            <div class="text-center py-2">
+                <p>Número de palabras: {{nPalabras}}</p>
+            </div>
+        @if(nPalabras > 0){
                 <p class="text-success text-center">{{textoFiltrado}}</p>
                 <button class="btn btn-danger w-100" (click)="empezar()">Hasi</button>
-            }@else {
-                <p class="text-danger text-center">No hay palabras con esos filtros</p>
-            }
+        }@else {
+            <p class="text-danger text-center">No hay palabras con esos filtros</p>
+        }
         </div>
         }
 

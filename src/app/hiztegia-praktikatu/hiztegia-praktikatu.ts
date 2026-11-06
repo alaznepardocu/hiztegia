@@ -34,6 +34,7 @@ cursos: any;
   modo = 'Euskara';
   serviceHiztegia: any;
   textoFiltrado = "";
+  solucion = "";
 
   public constructor(serviceHiztegia: ServiceHiztegia) {
     this.serviceHiztegia = serviceHiztegia;
@@ -87,6 +88,7 @@ cursos: any;
     this.classTextoAcierto = "text-center";
     this.acertado = false;
     this.palabraIntroducida = "";
+    this.solucion = "";
   }
 
   public probar() {
@@ -102,7 +104,8 @@ cursos: any;
         }
       }
       if (this.acertado) {
-        this.textoAcierto = "<strong>Oso ondo!</strong>";
+        this.textoAcierto = "<strong>Oso ondo!</strong><br>" ;
+        this.solucion = this.palabraSeleccionada.eu + " = " + this.palabraSeleccionada.es;
         this.classTextoAcierto = "text-center  text-success fw-bold fs-2";
         this.palabrasAEstudiar.splice(this.palabrasAEstudiar.indexOf(this.palabraSeleccionada), 1);
         this.palabraIntroducida = "";

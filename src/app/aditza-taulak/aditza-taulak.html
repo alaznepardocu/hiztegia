@@ -1,0 +1,118 @@
+<div class="d-flex justify-content-center flex-column text-center">
+    <h1 class="text-primary">Aditza Taulak</h1>
+    <hr>
+    <div class="container">
+        <h2 class="text-secondary">Trinkoak</h2>
+        <div class="row justify-content-between">
+            <div class="col h-100 d-flex flex-wrap text-center align-center justify-content-center p-1">
+                @for(aditza of serviceHiztegia.transitiboak(); track aditza){
+                    <button type="button" class="btn btn-outline-secondary mx-3" (click)="irATabla('tabla-transitivo-' + aditza)">{{aditza}}</button>
+                }
+            </div>
+        </div>
+        <div class="row justify-content-between">
+            <div class="col h-100 d-flex flex-wrap text-center align-center justify-content-center p-1">
+                @for(aditza of serviceHiztegia.intransitiboak(); track aditza){
+                    <button type="button" class="btn btn-outline-secondary  mx-3" (click)="irATabla('tabla-intransitivo-' + aditza)">{{aditza}}</button>
+                }
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+        @if(serviceHiztegia.transitiboak().length > 0){
+
+        
+            <!-- Los transitivos -->
+            @for(aditza of serviceHiztegia.transitiboak(); track aditza){
+            <div class="col-10 col-lg-4 mt-4">
+                <div class="card p-2 my-2 " [id]="'trinkoa-' + aditza">
+                    <h3><b><u>{{aditza.toUpperCase()}}</u></b></h3>
+                    {{obtenerAditzaTrinkoa(aditza)}}
+                    <div class="table-responsive">
+                    <table [id]="'tabla-transitivo-' + aditza" class="justify-content-center table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                @for(string of obtenerTrinkoDenborak(); track string){
+                                <th class="text-center">{{string}}</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @for(pertsona of norPertsonak; track pertsona; let i = $index ){
+                            <tr>
+                                <td><b>{{pertsona}}</b></td>
+                                @for(denbora of obtenerTrinkoDenborak(); track denbora; let j = $index){
+                                <td class="text-center">
+                                    {{obtenerTrinkoKonjugazioa(pertsona, denbora)}}
+                                </td>
+                                }
+
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+             }
+        }
+        @else{
+        <p>No hay datos...</p>
+        }
+        </div>
+        <div class="row justify-content-center">
+            <!-- Los transitivos -->
+            @for(aditza of serviceHiztegia.intransitiboak(); track aditza){
+            <div class="col-12 col-lg-6">
+                <div class="card p-2 mt-4" [id]="'trinkoa-' + aditza">
+                    <h3><b><u>{{aditza.toUpperCase()}}</u></b></h3>
+                    {{obtenerAditzaTrinkoa(aditza)}}
+                    <div class="table-responsive">
+                    <table [id]="'tabla-intransitivo-' + aditza" class="justify-content-center table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                @for(string of obtenerTrinkoDenborak(); track string){
+                                <th class="text-center" colspan="2">{{string}}</th>
+                                }
+                            </tr>
+                            <tr>
+                                <th></th>
+                                @for(string of objecktuak; track string){
+                                <th class="text-center">{{string}}</th>
+                                }
+                                @for(string of objecktuak; track string){
+                                <th class="text-center">{{string}}</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @for(pertsona of norkPertsonak; track pertsona; let i = $index ){
+                            <tr>
+                                <td><b>{{pertsona}}</b></td>
+                                @for(denbora of obtenerTrinkoDenborak(); track denbora; let j = $index){
+                                @for(objektu of objecktuak; track objektu; let k = $index){
+                                <td class="text-center">
+                                    {{obtenerTrinkoKonjugazioa(pertsona, denbora, objektu)}}
+                                </td>
+
+                                }
+                                }
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+        
+    </div>
+    <hr>
+</div>
