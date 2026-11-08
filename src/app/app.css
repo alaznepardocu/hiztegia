@@ -1,3 +1,9 @@
 .navbar-brand{
     margin-right: 1.4rem;
 }
+
+@media all and (max-width: 360px){
+    .icons{
+        margin-left: 20px;
+     }
+}
