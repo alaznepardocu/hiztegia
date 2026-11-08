@@ -37,7 +37,9 @@
 
             }
             <p [class]="classTextoAcierto" [innerHTML]="textoAcierto"></p>
-            <p class="text-center fs-5">{{solucion}}</p>
+            @if(this.palabrasAEstudiar.length > 0){
+               <p class="text-center fs-5">{{solucion}}</p> 
+            }
             @if(this.intentos == 0){
             <p class="fs-4 text-center">La solución era:<br><b>
                     @if(modo === "Euskara"){

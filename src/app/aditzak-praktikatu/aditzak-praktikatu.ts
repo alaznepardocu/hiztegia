@@ -105,31 +105,31 @@ export class AditzakPraktikatu {
     this.todosAditzakAEstudiar = [];
     this.textoFiltrado = "";
     if (this.arrayTrinkoak.length > 0 || this.arrayAuxiliarrak.length > 0) {
-      this.trinkosAEstudiar = [...this.listaTrinkoakCompleta];
-      this.auxiliarrakAEstudiar = [...this.listaAuxiliarrakCompleta];
-
-      this.trinkosAEstudiar = this.trinkosAEstudiar.filter(aditza =>
+      if(this.arrayTrinkoak.length > 0){
+        this.trinkosAEstudiar = [...this.listaTrinkoakCompleta];
+        this.trinkosAEstudiar = this.trinkosAEstudiar.filter(aditza =>
         this.arrayTrinkoak.includes(aditza.aditza));
-      
-
-      this.trinkosAEstudiar = this.trinkosAEstudiar.filter(aditza =>
+        this.trinkosAEstudiar = this.trinkosAEstudiar.filter(aditza =>
         (this.orainaldia && aditza.denbora === "orainaldia") ||
         (this.lehenaldia && aditza.denbora === "lehenaldia"))
-      
-      this.auxiliarrakAEstudiar = this.auxiliarrakAEstudiar.filter(aditza =>
+        this.todosAditzakAEstudiar.push(...this.trinkosAEstudiar);
+      }
+      if(this.arrayAuxiliarrak.length > 0){
+        this.auxiliarrakAEstudiar = [...this.listaAuxiliarrakCompleta];
+        this.auxiliarrakAEstudiar = this.auxiliarrakAEstudiar.filter(aditza =>
         (this.orainaldia && aditza.denbora === "orainaldia") ||
         (this.lehenaldia && aditza.denbora === "lehenaldia"))
-
+        this.todosAditzakAEstudiar.push(...this.auxiliarrakAEstudiar);
+      }
+      
       this.textoFiltrado = "Filtrado con éxito";
       this.filtrado = true;
-      this.todosAditzakAEstudiar.push(...this.trinkosAEstudiar);
-      this.todosAditzakAEstudiar.push(...this.auxiliarrakAEstudiar);
     }
     else {
       this.textoFiltrado = "No se han seleccionado aditzak";
     }
 
-    //console.log(this.todosAditzakAEstudiar)
+    console.log(this.todosAditzakAEstudiar)
     
     this.nPalabras = this.todosAditzakAEstudiar.length;
   }
