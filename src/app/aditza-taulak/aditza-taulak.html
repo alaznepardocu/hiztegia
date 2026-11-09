@@ -1,6 +1,19 @@
 <div class="d-flex justify-content-center flex-column text-center">
     <h1 class="text-primary">Aditza Taulak</h1>
     <hr>
+    <div class="row align-items-center justify-content-center">
+        <div class="form-check w-auto d-flex align-items-center justify-content-center gap-2 border rounded p-2">
+            <input class="form-check-input m-0 flex-shrink-0" type="checkbox" id="orden"
+                [checked]="ordenAlternativo" (change)="cambiarOrden($event.target.checked)">
+            <label class="form-check-label text-center" for="orden">Orden Ni / Zu</label>
+        </div>
+        <div class="form-check w-auto d-flex align-items-center justify-content-center gap-2 border rounded p-2 ml-4">
+            <input class="form-check-input m-0 flex-shrink-0" type="checkbox" id="ocultarHi"
+                [checked]="ocultarHi" (change)="ocultarHi = $event.target.checked">
+            <label class="form-check-label text-center" for="ocultarHi">Ocultar Hi</label>
+        </div>
+    </div>
+    <hr>
     <div class="container">
         <h2 class="text-secondary">Trinkoak</h2>
         <div class="row justify-content-between">
@@ -41,6 +54,7 @@
                         <tbody>
 
                             @for(pertsona of norPertsonak; track pertsona; let i = $index ){
+                            @if(!ocultarHi || pertsona !== 'hi'){
                             <tr>
                                 <td><b>{{pertsona}}</b></td>
                                 @for(denbora of obtenerTrinkoDenborak(); track denbora; let j = $index){
@@ -50,6 +64,7 @@
                                 }
 
                             </tr>
+                            }
                             }
 
                         </tbody>
@@ -92,6 +107,7 @@
                         <tbody>
 
                             @for(pertsona of norkPertsonak; track pertsona; let i = $index ){
+                            @if(!ocultarHi || pertsona !== 'hik'){
                             <tr>
                                 <td><b>{{pertsona}}</b></td>
                                 @for(denbora of obtenerTrinkoDenborak(); track denbora; let j = $index){
@@ -103,6 +119,7 @@
                                 }
                                 }
                             </tr>
+                            }
                             }
 
                         </tbody>

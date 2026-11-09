@@ -1,0 +1,45 @@
+<div class="container w-100">
+    <h1 class="fw-bold text-center">{{modo}}</h1>
+</div>
+<hr>
+<div class="card p-3">
+    <p class="fs-2 text-center pb-2">
+        @if (modo === "Euskara") {
+            {{palabraSeleccionada.eu}}
+        } @else {
+            {{palabraSeleccionada.es}}
+        }
+    </p>
+
+    @if (intentos > 0 && !acertado) {
+        <form class="input-group mb-3 w-100" (ngSubmit)="probar()">
+            <input type="text" class="form-control" name="erderaz" placeholder="hitz"
+                [(ngModel)]="palabraIntroducida">
+            <button class="btn btn-warning" type="submit">Saiatu</button>
+            <button class="btn btn-outline-secondary" type="button"
+                (click)="palabraIntroducida = ''">X</button>
+        </form>
+    }
+
+    <p [class]="classTextoAcierto" [innerHTML]="textoAcierto"></p>
+    @if (palabrasAEstudiar.length > 0) {
+        <p class="text-center fs-5">{{solucion}}</p>
+    }
+    @if (intentos === 0) {
+        <p class="fs-4 text-center">La solución era:<br><b>
+            @if (modo === "Euskara") {
+                {{palabraSeleccionada.es}}
+            } @else {
+                {{palabraSeleccionada.eu}}
+            }
+        </b></p>
+    }
+</div>
+<hr>
+<div class="d-grid gap-between-5">
+    @if (palabrasAEstudiar.length > 0) {
+        <br><button class="btn btn-secondary" (click)="sacarPalabra()">Beste Hitz Bat</button>
+    }
+    <p class="text-center">Palabras restantes: {{palabrasAEstudiar.length}} / {{nPalabras}}</p>
+    <button class="btn btn-danger" (click)="reset.emit()">Reset</button>
+</div>

@@ -22,10 +22,22 @@ export class AditzaTaulak {
 
   objecktuak = ["singularra", "plurala"];
   denborak = ["orainaldia", "lehenaldia"];
-  norPertsonak = ["ni", "zu", "hura", "gu", "zuek", "haiek"];
-  norkPertsonak = ["nik", "zuk", "hark", "guk", "zuek", "haiek"];
+  ordenNor1 = ["ni", "hi", "hura", "gu", "zu", "zuek", "haiek"];
+  ordenNor2 = ["ni", "zu", "hi", "hura", "gu", "zuek", "haiek"];
+  ordenNork1 = ["nik", "hik", "hark", "guk", "zuk", "zuek", "haiek"];
+  ordenNork2 = ["nik", "zuk", "hik", "hark", "guk", "zuek", "haiek"];
+  norPertsonak = this.ordenNor1;
+  norkPertsonak = this.ordenNork1;
+  ordenAlternativo = false;
+  ocultarHi = false;
 
   aditzaActual : Trinkoa[] | NorNork[] | any[] = []  ;
+
+  cambiarOrden(ordenAlternativo: boolean): void {
+    this.ordenAlternativo = ordenAlternativo;
+    this.norPertsonak = ordenAlternativo ? this.ordenNor2 : this.ordenNor1;
+    this.norkPertsonak = ordenAlternativo ? this.ordenNork2 : this.ordenNork1;
+  }
 
   obtenerAditzaTrinkoa(aditza: string): void {
     this.aditzaActual =  this.serviceHiztegia.trinkoak().filter((item) => item.aditza === aditza);

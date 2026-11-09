@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark px-3">
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark px-3">
     <div class="container-fluid">
         <a class="navbar-brand text-primary" href="#"><b>APC Hiztegia</b></a>
         <button class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navHiztegia" aria-label="Toggle navigation">
@@ -17,7 +17,7 @@
         </div>
     </div>
 </nav>
-<main class="container-fluid body-content my-3 py-2">
+<main class="container-fluid body-content my-5 py-2">
     <router-outlet />
 </main>
 <footer class="footer bg-body-tertiary border-top py-3 mt-auto ">

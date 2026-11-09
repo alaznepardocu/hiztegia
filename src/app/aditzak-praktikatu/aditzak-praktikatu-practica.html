@@ -1,0 +1,43 @@
+<div class="card p-3">
+    @if (!acertado) {
+        <p class="fs-2 text-center pb-2">
+            @if (modo === 'trikoa') {
+                @if ('objektu' in palabraSeleccionada && palabraSeleccionada.objektu) {
+                    @if (palabraSeleccionada.objektu === 'singularra') {
+                        {{palabraSeleccionada.pertsona}} gauza bat ________ ({{palabraSeleccionada.aditza}})
+                        <br>({{palabraSeleccionada.denbora}})
+                    } @else {
+                        {{palabraSeleccionada.pertsona}} bi gauzak ________ ({{palabraSeleccionada.aditza}})
+                        <br>({{palabraSeleccionada.denbora}})
+                    }
+                } @else if ('pertsona' in palabraSeleccionada) {
+                    {{palabraSeleccionada.pertsona}} ________ ({{palabraSeleccionada.aditza}})
+                    <br>({{palabraSeleccionada.denbora}})
+                }
+            } @else if (modo === 'norNork' && 'nor' in palabraSeleccionada && 'nork' in palabraSeleccionada) {
+                {{palabraSeleccionada.nork}} {{palabraSeleccionada.nor}} {{verboNorNork}} ________
+                <br>({{palabraSeleccionada.denbora}})
+            }
+        </p>
+    }
+    @if (intentos > 0 && !acertado) {
+        <form class="input-group mb-3 w-100" (ngSubmit)="probar()">
+            <input type="text" class="form-control" name="erderaz" placeholder="aditza"
+                [(ngModel)]="palabraIntroducida">
+            <button class="btn btn-warning" type="submit">Saiatu</button>
+            <button class="btn btn-outline-secondary" type="button" (click)="palabraIntroducida = ''">X</button>
+        </form>
+    }
+    <p [class]="classTextoAcierto" [innerHTML]="textoAcierto"></p>
+    @if (intentos === 0) {
+        <p class="fs-4 text-center">La solución era:<br><b>{{respuesta}}</b></p>
+    }
+</div>
+<hr>
+<div class="d-grid gap-between-5">
+    @if (aditzakPendientes.length > 0) {
+        <br><button class="btn btn-secondary" (click)="sacarPalabra()">Beste Hitz Bat</button>
+    }
+    <p class="text-center">Palabras restantes: {{aditzakPendientes.length}} / {{aditzak.length}}</p>
+    <button class="btn btn-danger" (click)="reset.emit()">Reset</button>
+</div>

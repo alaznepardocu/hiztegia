@@ -1,0 +1,41 @@
+<div #panelFiltros class="card px-2 py-5">
+    <div class="btn-group mb-3 w-100" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+            [(ngModel)]="modo" value="Euskara">
+        <label class="btn btn-outline-primary" for="btnradio1">Euskara</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+            [(ngModel)]="modo" value="Gaztelaina">
+        <label class="btn btn-outline-primary" for="btnradio2">Gaztelaina</label>
+    </div>
+    <div class="row row-cols-2 justify-content-center py-2">
+        <div class="form-group row col-6 justify-content-between p-2">
+            <div class="col form-check d-flex align-items-center justify-content-center gap-2 p-2">
+                <b>Curso: </b>
+                <select id="curso" name="curso" [ngModel]="cursoSeleccionado"
+                    (ngModelChange)="cambiarCurso($event)">
+                    @for (curso of serviceHiztegia.cursos(); track $index) {
+                        <option [value]="curso">{{curso}}</option>
+                    }
+                </select>
+            </div>
+            <div class="col form-check d-flex align-items-center justify-content-center gap-2 p-2">
+                <b>Fecha: </b>
+                <select id="fecha" name="fecha" [ngModel]="fechaSeleccionada"
+                    (ngModelChange)="cambiarFecha($event)">
+                    @for (fecha of fechasDisponibles; track $index) {
+                        <option [value]="fecha">{{fecha}}</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="text-center py-2">
+        <p>Número de palabras: {{nPalabras}}</p>
+    </div>
+    @if (nPalabras > 0) {
+        <button class="btn btn-danger w-100" (click)="iniciarPractica()">Hasi</button>
+    } @else {
+        <p class="text-danger text-center">No hay palabras con esos filtros</p>
+    }
+</div>
