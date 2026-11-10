@@ -11,5 +11,12 @@ export const routes: Routes = [
   { path: 'aditzak-praktikatu', component: AditzakPraktikatu, title: 'Aditzak Praktikatu' },
   { path: 'aditza-taulak', component: AditzaTaulak, title: 'Aditza Taulak' },
   { path: 'info', component: Info, title: 'Info' },
+  // Ruta oculta de administración: NO se enlaza desde ningún menú.
+  // Cambia 'gestion-x7k2' por el texto que quieras (la seguridad real es el login + RLS).
+  {
+    path: 'gestion-x7k2',
+    loadComponent: () => import('./admin/admin').then(m => m.Admin),
+    title: 'Admin',
+  },
   { path: '**', redirectTo: '/info' },
 ];

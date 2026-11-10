@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, Vie
 import { FormsModule } from '@angular/forms';
 import { ServiceHiztegia } from '../hiztegiService';
 import { Hitz } from '../hiztegia';
+import { agruparPorEu, etiquetaIkasturtea, formatearFecha } from '../utilidades';
 
 @Component({
   imports: [FormsModule],
@@ -10,10 +11,12 @@ import { Hitz } from '../hiztegia';
 })
 export class HiztegiaPraktikatuFiltros implements AfterViewInit, OnInit {
   modo = 'Euskara';
-  cursoSeleccionado = 'Todos';
+  nivelSeleccionado = 'Todos';          // A1, A2... (antes "curso")
+  ikasturteaSeleccionada = 'Todos';     // 2026-27...
   fechaSeleccionada = 'Todos';
-  palabrasFiltradas: Hitz[] | null = null;
-  textoFiltrado = '';
+  palabrasFiltradas: Hitz[] = [];
+  nPalabras = 0;
+  readonly formatearFecha = formatearFecha;
   @Output() empezar = new EventEmitter<{ palabras: Hitz[]; modo: string }>();
 
   @ViewChild('panelFiltros') panelFiltros!: ElementRef<HTMLElement>;
@@ -25,26 +28,34 @@ export class HiztegiaPraktikatuFiltros implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
+    // Por defecto, el curso más reciente
+    this.ikasturteaSeleccionada = this.serviceHiztegia.ikasturteaActual();
     this.filtrar();
   }
 
+  private palabrasDeNivelYCurso(): Hitz[] {
+    return this.serviceHiztegia.hiztegia().filter(p =>
+      (this.nivelSeleccionado === 'Todos' || p.maila === this.nivelSeleccionado) &&
+      (this.ikasturteaSeleccionada === 'Todos' ||
+        etiquetaIkasturtea(p.ikasturtea) === this.ikasturteaSeleccionada)
+    );
+  }
+
   get fechasDisponibles(): string[] {
-    const curso = this.cursoSeleccionado.toLowerCase();
-    const fechas = this.serviceHiztegia.hiztegia().reverse()
-      .filter(palabra => curso === 'todos' || palabra.maila.toLowerCase() === curso)
-      .map(palabra => palabra.data);
-    return ['Todos', ...new Set(fechas)];
+    const fechas = new Set(this.palabrasDeNivelYCurso().map(p => p.data));
+    // Se copia antes de ordenar: así no se toca el array original del servicio
+    return ['Todos', ...[...fechas].sort().reverse()];
   }
 
-  get nPalabras(): number {
-    return this.palabrasFiltradas?.length ?? this.serviceHiztegia.hiztegia().length;
+  public cambiarNivel(nivel: string): void {
+    this.nivelSeleccionado = nivel;
+    this.revisarFecha();
+    this.filtrar();
   }
 
-  public cambiarCurso(curso: string): void {
-    this.cursoSeleccionado = curso;
-    if (!this.fechasDisponibles.some(fecha => fecha.toLowerCase() === this.fechaSeleccionada.toLowerCase())) {
-      this.fechaSeleccionada = 'Todos';
-    }
+  public cambiarIkasturtea(ikasturtea: string): void {
+    this.ikasturteaSeleccionada = ikasturtea;
+    this.revisarFecha();
     this.filtrar();
   }
 
@@ -53,17 +64,21 @@ export class HiztegiaPraktikatuFiltros implements AfterViewInit, OnInit {
     this.filtrar();
   }
 
+  private revisarFecha(): void {
+    if (!this.fechasDisponibles.includes(this.fechaSeleccionada)) {
+      this.fechaSeleccionada = 'Todos';
+    }
+  }
+
   public filtrar(): void {
-    this.palabrasFiltradas = this.serviceHiztegia.hiztegia().filter(palabra =>
-      (this.cursoSeleccionado === 'Todos' ||
-        palabra.maila.toLowerCase() === this.cursoSeleccionado.toLowerCase()) &&
-      (this.fechaSeleccionada === 'Todos' ||
-        palabra.data.toLowerCase() === this.fechaSeleccionada.toLowerCase())
+    this.palabrasFiltradas = this.palabrasDeNivelYCurso().filter(p =>
+      this.fechaSeleccionada === 'Todos' || p.data === this.fechaSeleccionada
     );
+    // Si se mezclan niveles, la misma palabra cuenta una sola vez (con todos sus significados)
+    this.nPalabras = agruparPorEu(this.palabrasFiltradas).length;
   }
 
   public iniciarPractica(): void {
-    const palabras = this.palabrasFiltradas ?? this.serviceHiztegia.hiztegia();
-    this.empezar.emit({ palabras: [...palabras], modo: this.modo });
+    this.empezar.emit({ palabras: agruparPorEu(this.palabrasFiltradas), modo: this.modo });
   }
 }

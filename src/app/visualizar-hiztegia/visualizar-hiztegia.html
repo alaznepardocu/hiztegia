@@ -1,14 +1,23 @@
 <div class="d-flex justify-content-center flex-column">
   <h1 class="text-primary text-center">Hiztegia</h1>
   <div class="container pt-3">
-    <div class=" justify-content-center">
-    <div class="form-group row row-cols-2 col-12 justify-content-between">
+    <div class="justify-content-center">
+    <div class="form-group row row-cols-1 row-cols-md-3 col-12 justify-content-between gy-2">
+      <div class="form-check d-flex align-items-center justify-content-center gap-2">
+          <b>Nivel: </b>
+          <select id="nivel" name="nivel" [ngModel]="nivelSeleccionado()" (ngModelChange)="nivelSeleccionado.set($event)">
+              @for(nivel of serviceHiztegia.niveles(); track $index){
+              <option [value]="nivel">
+                  {{nivel}}
+              </option> }
+          </select>
+      </div>
       <div class="form-check d-flex align-items-center justify-content-center gap-2">
           <b>Curso: </b>
-          <select id="curso" name="curso" [ngModel]="cursoSeleccionado()" (ngModelChange)="cursoSeleccionado.set($event)">
-              @for(curso of serviceHiztegia.cursos(); track $index){
-              <option [value]="curso">
-                  {{curso}}
+          <select id="ikasturtea" name="ikasturtea" [ngModel]="ikasturteaSeleccionada()" (ngModelChange)="ikasturteaElegida.set($event)">
+              @for(ikasturtea of serviceHiztegia.ikasturteak(); track $index){
+              <option [value]="ikasturtea">
+                  {{ikasturtea}}
               </option> }
           </select>
       </div>
@@ -17,7 +26,7 @@
           <select id="fecha" name="fecha" [ngModel]="fechaSeleccionada()" (ngModelChange)="fechaSeleccionada.set($event)">
               @for(fecha of serviceHiztegia.fechas(); track $index){
               <option [value]="fecha">
-                  {{fecha}}
+                  {{ fecha === 'Todos' ? fecha : formatearFecha(fecha) }}
               </option> }
           </select>
       </div>
@@ -39,21 +48,33 @@
           <th >EU</th>
           <th>ES</th>
           <th>MAILA</th>
+          <th>CURSO</th>
           <th>DATA</th>
         </tr>
       </thead>
       <tbody>
         @if(palabrasFiltradas().length > 0){
-        @for (palabra of palabrasFiltradas(); track $index) {
+        @for (palabra of palabrasFiltradas(); track palabra.id) {
         <tr>
-          <td>{{palabra.eu}}</td>
-          <td>{{palabra.es}}</td>
+          <td>
+            {{palabra.eu}}
+            @if (palabra.eu_alt && palabra.eu_alt.length > 0) {
+              <br><small class="text-muted">{{palabra.eu_alt.join(', ')}}</small>
+            }
+          </td>
+          <td>
+            {{palabra.es.join(' · ')}}
+            @if (palabra.nota) {
+              <br><small class="text-muted">{{palabra.nota}}</small>
+            }
+          </td>
           <td>{{palabra.maila}}</td>
-          <td>{{palabra.data}}</td>
+          <td>{{etiquetaIkasturtea(palabra.ikasturtea)}}</td>
+          <td>{{formatearFecha(palabra.data)}}</td>
         </tr>
         }}@else {
         <tr>
-          <td colspan="4">No hay resultados</td>
+          <td colspan="5">No hay resultados</td>
         </tr>
         }
       </tbody>
@@ -62,6 +83,11 @@
 
     }
     @else{
-    <p>No hay datos...</p>
+    @if (serviceHiztegia.error()) {
+      <p class="text-danger">{{serviceHiztegia.error()}} Recarga la página o inténtalo más tarde.</p>
+    } @else {
+      <p>No hay datos...</p>
+    }
     }
   </div>
+</div>

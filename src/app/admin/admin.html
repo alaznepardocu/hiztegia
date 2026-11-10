@@ -1,0 +1,32 @@
+<div class="container py-3">
+    @if (!auth.listo()) {
+        <p class="text-center">Cargando...</p>
+    } @else if (!auth.esAdmin()) {
+        <div class="card p-4 mx-auto" style="max-width: 24rem">
+            <h1 class="h4 text-center mb-3">Admin</h1>
+            @if (auth.email()) {
+                <p class="text-danger text-center">Esta cuenta no tiene permisos de administrador.</p>
+                <button class="btn btn-outline-secondary mb-3" type="button" (click)="salir()">Cerrar sesión</button>
+            }
+            <form (ngSubmit)="entrar()">
+                <input class="form-control mb-2" type="email" name="email" placeholder="Email"
+                    autocomplete="username" [(ngModel)]="email">
+                <input class="form-control mb-3" type="password" name="password" placeholder="Contraseña"
+                    autocomplete="current-password" [(ngModel)]="password">
+                <button class="btn btn-danger w-100" type="submit" [disabled]="entrando()">Entrar</button>
+            </form>
+            @if (error()) {
+                <p class="text-danger text-center mt-3 mb-0">{{error()}}</p>
+            }
+        </div>
+    } @else {
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="h3 mb-0 text-primary">Admin · Hiztegia</h1>
+            <div>
+                <small class="text-muted me-2">{{auth.email()}}</small>
+                <button class="btn btn-sm btn-outline-secondary" type="button" (click)="salir()">Salir</button>
+            </div>
+        </div>
+        <app-editor-palabras />
+    }
+</div>

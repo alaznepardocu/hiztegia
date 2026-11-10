@@ -1,0 +1,13 @@
+{
+  "name": "importar-hiztegia",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "importar": "node --env-file=.env importar.mjs",
+    "reimportar": "node --env-file=.env importar.mjs --reset",
+    "test": "node test.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0"
+  }
+}

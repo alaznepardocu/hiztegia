@@ -2,7 +2,11 @@
     <div class="container w-100">
         @switch (pantalla()) {
             @case ('cargando') {
-                <p class="text-center">Cargando Hiztegia...</p>
+                @if (serviceHiztegia.error()) {
+                    <p class="text-center text-danger">{{serviceHiztegia.error()}} Recarga la página o inténtalo más tarde.</p>
+                } @else {
+                    <p class="text-center">Cargando Hiztegia...</p>
+                }
             }
             @case ('filtros') {
                 <app-hiztegia-praktikatu-filtros

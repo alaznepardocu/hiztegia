@@ -7,9 +7,12 @@
         @if (modo === "Euskara") {
             {{palabraSeleccionada.eu}}
         } @else {
-            {{palabraSeleccionada.es}}
+            {{palabraSeleccionada.es.join(' · ')}}
         }
     </p>
+    @if (modo === "Euskara" && palabraSeleccionada.es.length > 1 && !acertado) {
+        <p class="text-center text-muted">Vale cualquiera de sus {{palabraSeleccionada.es.length}} significados</p>
+    }
 
     @if (intentos > 0 && !acertado) {
         <form class="input-group mb-3 w-100" (ngSubmit)="probar()">
@@ -26,13 +29,7 @@
         <p class="text-center fs-5">{{solucion}}</p>
     }
     @if (intentos === 0) {
-        <p class="fs-4 text-center">La solución era:<br><b>
-            @if (modo === "Euskara") {
-                {{palabraSeleccionada.es}}
-            } @else {
-                {{palabraSeleccionada.eu}}
-            }
-        </b></p>
+        <p class="fs-4 text-center">La solución era:<br><b>{{respuestaVisible}}</b></p>
     }
 </div>
 <hr>

@@ -1,0 +1,120 @@
+<div class="card p-3 mb-4">
+    <h2 class="h5">{{ editandoId() ? 'Editar palabra' : 'Añadir palabra' }}</h2>
+
+    <form (ngSubmit)="guardar()">
+        <div class="row g-2">
+            <div class="col-12 col-md-6">
+                <label class="form-label mb-1" for="eu"><b>Euskera</b></label>
+                <input id="eu" class="form-control" name="eu" [(ngModel)]="borrador.eu" autocomplete="off">
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="form-label mb-1" for="euAlt">Variantes en euskera (separadas por comas)</label>
+                <input id="euAlt" class="form-control" name="euAlt" [(ngModel)]="borrador.euAlt" autocomplete="off">
+            </div>
+        </div>
+
+        <label class="form-label mt-3 mb-1"><b>Significados (castellano)</b></label>
+        @for (s of borrador.es; track $index; let i = $index) {
+            <div class="input-group mb-2">
+                <input class="form-control" [name]="'es' + i" placeholder="Significado {{i + 1}}" autocomplete="off"
+                    [ngModel]="borrador.es[i]" (ngModelChange)="borrador.es[i] = $event">
+                @if (borrador.es.length > 1) {
+                    <button class="btn btn-outline-danger" type="button" (click)="quitarSignificado(i)">✕</button>
+                }
+            </div>
+        }
+        <button class="btn btn-sm btn-outline-secondary" type="button" (click)="anadirSignificado()">+ significado</button>
+
+        <div class="row g-2 mt-2">
+            <div class="col-6 col-md-3">
+                <label class="form-label mb-1" for="maila">Nivel</label>
+                <select id="maila" class="form-select" name="maila" [(ngModel)]="borrador.maila">
+                    @for (n of nivelesPosibles; track n) {
+                        <option [value]="n">{{n}}</option>
+                    }
+                </select>
+            </div>
+            <div class="col-6 col-md-3">
+                <label class="form-label mb-1" for="ikasturtea">Curso (año de inicio)</label>
+                <input id="ikasturtea" class="form-control" type="number" name="ikasturtea"
+                    [(ngModel)]="borrador.ikasturtea">
+                <small class="text-muted">{{ etiquetaIkasturtea(borrador.ikasturtea) }}</small>
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="form-label mb-1" for="nota">Nota (opcional)</label>
+                <input id="nota" class="form-control" name="nota" [(ngModel)]="borrador.nota" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-3">
+            <button class="btn btn-danger" type="submit" [disabled]="guardando()">
+                {{ editandoId() ? 'Guardar cambios' : 'Añadir' }}
+            </button>
+            @if (editandoId()) {
+                <button class="btn btn-outline-secondary" type="button" (click)="cancelar()">Cancelar</button>
+            }
+        </div>
+    </form>
+
+    @if (mensaje(); as m) {
+        <div class="alert mt-3 mb-0" [class.alert-success]="!m.error" [class.alert-danger]="m.error">{{m.texto}}</div>
+    }
+</div>
+
+<h2 class="h5">Palabras</h2>
+<div class="row g-2 mb-3">
+    <div class="col-6 col-md-3">
+        <select class="form-select" name="filtroNivel" [(ngModel)]="filtroNivel">
+            @for (n of svc.niveles(); track $index) {
+                <option [value]="n">Nivel: {{n}}</option>
+            }
+        </select>
+    </div>
+    <div class="col-6 col-md-3">
+        <select class="form-select" name="filtroIkasturtea" [(ngModel)]="filtroIkasturtea">
+            @for (y of svc.ikasturteak(); track $index) {
+                <option [value]="y">Curso: {{y}}</option>
+            }
+        </select>
+    </div>
+    <div class="col-12 col-md-6">
+        <input class="form-control" name="filtroTexto" placeholder="Buscar por euskera o castellano"
+            [(ngModel)]="filtroTexto" autocomplete="off">
+    </div>
+</div>
+
+@let filas = filtradas;
+<p class="text-muted mb-2">
+    Mostrando {{ filas.length > maxFilas ? maxFilas : filas.length }} de {{filas.length}}
+    @if (filas.length > maxFilas) { (afina los filtros para ver el resto) }
+</p>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+        <thead>
+            <tr><th>EU</th><th>ES</th><th>Nivel</th><th>Curso</th><th>Fecha</th><th></th></tr>
+        </thead>
+        <tbody>
+            @for (p of filas.slice(0, maxFilas); track p.id) {
+                <tr>
+                    <td>
+                        {{p.eu}}
+                        @if (p.eu_alt && p.eu_alt.length > 0) { <br><small class="text-muted">{{p.eu_alt.join(', ')}}</small> }
+                    </td>
+                    <td>
+                        {{p.es.join(' · ')}}
+                        @if (p.nota) { <br><small class="text-muted">{{p.nota}}</small> }
+                    </td>
+                    <td>{{p.maila}}</td>
+                    <td>{{etiquetaIkasturtea(p.ikasturtea)}}</td>
+                    <td>{{formatearFecha(p.data)}}</td>
+                    <td class="text-nowrap">
+                        <button class="btn btn-sm btn-outline-primary me-1" type="button" (click)="editar(p)">Editar</button>
+                        <button class="btn btn-sm btn-outline-danger" type="button" (click)="borrar(p)">Borrar</button>
+                    </td>
+                </tr>
+            } @empty {
+                <tr><td colspan="6">No hay resultados</td></tr>
+            }
+        </tbody>
+    </table>
+</div>

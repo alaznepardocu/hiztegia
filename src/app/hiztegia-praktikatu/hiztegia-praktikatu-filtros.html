@@ -8,26 +8,33 @@
             [(ngModel)]="modo" value="Gaztelaina">
         <label class="btn btn-outline-primary" for="btnradio2">Gaztelaina</label>
     </div>
-    <div class="row row-cols-2 justify-content-center py-2">
-        <div class="form-group row col-6 justify-content-between p-2">
-            <div class="col form-check d-flex align-items-center justify-content-center gap-2 p-2">
-                <b>Curso: </b>
-                <select id="curso" name="curso" [ngModel]="cursoSeleccionado"
-                    (ngModelChange)="cambiarCurso($event)">
-                    @for (curso of serviceHiztegia.cursos(); track $index) {
-                        <option [value]="curso">{{curso}}</option>
-                    }
-                </select>
-            </div>
-            <div class="col form-check d-flex align-items-center justify-content-center gap-2 p-2">
-                <b>Fecha: </b>
-                <select id="fecha" name="fecha" [ngModel]="fechaSeleccionada"
-                    (ngModelChange)="cambiarFecha($event)">
-                    @for (fecha of fechasDisponibles; track $index) {
-                        <option [value]="fecha">{{fecha}}</option>
-                    }
-                </select>
-            </div>
+    <div class="row row-cols-1 row-cols-md-3 justify-content-center py-2">
+        <div class="col d-flex align-items-center justify-content-center gap-2 p-2">
+            <b>Nivel: </b>
+            <select id="nivel" name="nivel" [ngModel]="nivelSeleccionado"
+                (ngModelChange)="cambiarNivel($event)">
+                @for (nivel of serviceHiztegia.niveles(); track $index) {
+                    <option [value]="nivel">{{nivel}}</option>
+                }
+            </select>
+        </div>
+        <div class="col d-flex align-items-center justify-content-center gap-2 p-2">
+            <b>Curso: </b>
+            <select id="ikasturtea" name="ikasturtea" [ngModel]="ikasturteaSeleccionada"
+                (ngModelChange)="cambiarIkasturtea($event)">
+                @for (ikasturtea of serviceHiztegia.ikasturteak(); track $index) {
+                    <option [value]="ikasturtea">{{ikasturtea}}</option>
+                }
+            </select>
+        </div>
+        <div class="col d-flex align-items-center justify-content-center gap-2 p-2">
+            <b>Fecha: </b>
+            <select id="fecha" name="fecha" [ngModel]="fechaSeleccionada"
+                (ngModelChange)="cambiarFecha($event)">
+                @for (fecha of fechasDisponibles; track $index) {
+                    <option [value]="fecha">{{ fecha === 'Todos' ? fecha : formatearFecha(fecha) }}</option>
+                }
+            </select>
         </div>
     </div>
     <div class="text-center py-2">
