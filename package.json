@@ -1,5 +1,5 @@
 {
-  "name": "json-post-users",
+  "name": "apc-hiztegia",
   "version": "0.0.0",
   "scripts": {
     "build": "ng build --configuration production",
@@ -19,7 +19,7 @@
     "@angular/platform-browser": "^22.2.3",
     "@angular/router": "^22.2.3",
     "@ng-bootstrap/ng-bootstrap": "^21.0.0",
-    "firebase": "^13.0.0",
+    "@supabase/supabase-js": "^2.119.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

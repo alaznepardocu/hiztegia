@@ -12,7 +12,7 @@ if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
   process.exit(1);
 }
 const sb = createClient(SUPABASE_URL, SUPABASE_SECRET_KEY, { auth: { persistSession: false } });
-
+console.log('Conectando a:', new URL(SUPABASE_URL).host);
 const BINS = {
   hiztegia: '6acdd703ac6210605a2cbcf8',
   trinkoak: '6ad8eaa8ac6210605a4669ce',
@@ -37,7 +37,13 @@ async function subir(tabla, filas, onConflict) {
   }
   console.log(`${tabla}: ${filas.length} filas`);
 }
-
+try {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/`, { headers: { apikey: SUPABASE_SECRET_KEY } });
+  console.log('Conexión con Supabase OK, estado HTTP:', r.status);
+} catch (e) {
+  console.error('No se llega a Supabase:', e.cause ?? e);
+  process.exit(1);
+}
 if (process.argv.includes('--reset')) {
   for (const tabla of ['aditzak', 'palabras']) {
     const { error } = await sb.from(tabla).delete().not('id', 'is', null);

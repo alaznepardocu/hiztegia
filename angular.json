@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "jsonPostUsers": {
+    "apc-hiztegia": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -57,10 +57,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "jsonPostUsers:build:production"
+              "buildTarget": "apc-hiztegia:build:production"
             },
             "development": {
-              "buildTarget": "jsonPostUsers:build:development"
+              "buildTarget": "apc-hiztegia:build:development"
             }
           },
           "defaultConfiguration": "development"
