@@ -2,6 +2,7 @@
     <header class="text-center mb-5">
         <h1 class="text-primary">Guía de uso</h1>
         <p class="lead">Aprende y practica vocabulario y verbos en euskera.</p>
+        <p>El vocabulario y las conjugaciones se cargan desde Supabase; necesitas conexión a Internet para usar la aplicación.</p>
     </header>
 
 
@@ -22,12 +23,10 @@
                 <div class="card-body" id="Secciones">
                     <h2 class="h4 card-title">Secciones de la aplicación</h2>
                     <ul class="mb-0">
-                        <li><strong>Hiztegia Praktikatu:</strong> practica vocabulario dado en clase.</li>
-                        <li><strong>Hiztegia:</strong> consulta el vocabulario y busca por palabra, nivel o fecha.</li>
-                        <li><strong>Aditzak Praktikatu:</strong> practica conjugaciones de verbos seleccionando los
-                            verbos y tiempos.</li>
-                        <li><strong>Aditza Taulak:</strong> consulta como se conjugan los distintos verbos dados en
-                            clase.</li>
+                        <li><strong>Hiztegia Praktikatu:</strong> practica vocabulario en euskera o castellano con filtros de nivel, curso y fecha.</li>
+                        <li><strong>Hiztegia:</strong> consulta y busca vocabulario por palabra, variantes, nivel, curso o fecha.</li>
+                        <li><strong>Aditzak Praktikatu:</strong> practica verbos trinkoak y auxiliares, eligiendo verbos y tiempos.</li>
+                        <li><strong>Aditza Taulak:</strong> consulta tablas de conjugación de los verbos trinkoak.</li>
                         <li><strong>Info:</strong> estás aquí; encontrarás una guía rápida de la aplicación.</li>
                         <li><strong>Reporte de Errores:</strong> ¿has encontrado algún error en la web o alguna palabra
                             está mal traducida? Aqui tienes información sobre como reportarlos.</li>
@@ -45,18 +44,18 @@
                         <li>Entra en <strong>Hiztegia Praktikatu</strong>.</li>
                         <li>Elige el idioma en el que quieres que aparezcan las palabras: <strong>Euskara</strong> o
                             <strong>Gaztelaina</strong>.</li>
-                        <li>Si quieres, selecciona un curso y una fecha; deja <strong>Todos</strong> para incluir todas
-                            las palabras.</li>
+                        <li>Selecciona un nivel, curso y fecha; deja <strong>Todos</strong> para no aplicar ese filtro.
+                            Por defecto se elige el curso más reciente.</li>
                         <ul>
-                            <li>Si no seleccionas un curso específico puede que haya palabras repetidas.</li>
+                            <li>Al combinar cursos, las entradas con la misma palabra en euskera se agrupan.</li>
                         </ul>
                         <li>Una vez tengas el vocabulario con tu selección y pulsa <strong>Hasi</strong>.</li>
                         <li>Escribe la traducción de la palabra y pulsa <strong>Saiatu</strong>. Tienes hasta tres
                             intentos para cada palabra.</li>
                         <ul>
-                            <li>Si aciertas, la palabra se quitará de la lista.</li>
-                            <li>Si no te sabes la palabra y quieres intentar otra, pulsa <strong>Nueva Palabra</strong>.
-                                Esto no la quitará de la lista a estudiar.</li>
+                            <li>En modo Euskara escribe cualquiera de sus significados en castellano; en modo Gaztelaina escribe la palabra en euskera o una de sus variantes.</li>
+                            <li>Las notas, si las hay, aparecen junto a la palabra o traducción.</li>
+                            <li>Si aciertas, la palabra se quita de la lista. <strong>Beste Hitz Bat</strong> permite pasar a otra sin quitarla de la lista.</li>
                         </ul>
                         <li>Vete acertando todas las palabras de tu lista, las que falles seguirán saliendo hasta que
                             las aciertes.</li>
@@ -74,11 +73,12 @@
                     <p>
                         En <strong>Hiztegia</strong> puedes recorrer la lista de palabras incluidas en la
                         aplicación.<br>
-                        Usa el buscador para encontrar coincidencias en euskera, castellano, nivel o fecha.<br>
+                        Filtra por nivel, curso y fecha. El buscador encuentra coincidencias en euskera, sus variantes,
+                        castellano, nivel o fecha.<br>
                         Pulsa <strong>X</strong> para borrar la búsqueda.
                     </p>
-                    <p class="mb-0">La tabla muestra las palabras en ambos idiomas, el nivel y el día de la clase en la
-                        que se dio dicho vocabulario.</p>
+                    <p class="mb-0">La tabla muestra la palabra en euskera, sus variantes, todos sus significados en
+                        castellano, las notas disponibles, el nivel, el curso y la fecha.</p>
                 </div>
             </article>
         </div>
@@ -89,15 +89,18 @@
                     <h2 class="h4 card-title">Aditzak Praktikatu</h2>
                     <ol class="mb-0">
                         <li>En <strong>Aditzak Praktikatu</strong>.</li>
-                        <li>Marca los verbos y los tiempos que quieras practicar y pulsa <strong>Iragazi
-                                (Filtrar)</strong>.</li>
-                        <li>Cuando hayas filtrado, pulsa <strong>Hasi</strong> y escribe la conjugación del verbo que
+                        <li>Marca los verbos trinkoak y/o auxiliares que quieras practicar. Puedes seleccionar todos
+                            los trinkoak a la vez.</li>
+                        <li>Elige si quieres practicar <em>orainaldia</em> (presente), <em>lehenaldia</em> (pasado) o ambos.
+                            La lista se actualiza al cambiar las opciones.</li>
+                        <li>Si no quieres estudiar las formas de <em>hi</em>/<em>hik</em>, activa
+                            <strong>No estudiar Hi eta Hik</strong>.</li>
+                        <li>Cuando tengas la selección, pulsa <strong>Hasi</strong> y escribe la conjugación que
                             falta.</li>
                         <li>Dispones de hasta tres intentos por ejercicio.</li>
                         <ul>
-                            <li>Si aciertas, la palabra se quitará de la lista.</li>
-                            <li>Si no te sabes la conjugación y quieres intentar otra, pulsa <strong>Nueva
-                                    Palabra</strong>. Esto no la quitará de la lista a estudiar.</li>
+                            <li>Si aciertas, la conjugación se quita de la lista.</li>
+                            <li><strong>Beste Hitz Bat</strong> muestra otro ejercicio sin quitar la conjugación pendiente.</li>
                         </ul>
                         <li>Vete acertando todas las palabras de tu lista, las que falles seguirán saliendo hasta que
                             las aciertes.</li>
@@ -106,8 +109,7 @@
                     <br>
                     El botón <strong>Reset</strong> vuelve al selector de la configuración inicial.
                     <p class="text-body-secondary mt-3 mb-0">
-                        Los nombres de algunas opciones aparecen en euskera: <em>orainaldia</em> significa presente y
-                        <em>lehenaldia</em>, pasado.
+                        El botón <strong>Reset</strong> vuelve al selector de verbos y tiempos.
                     </p>
                 </div>
             </article>
@@ -117,13 +119,10 @@
             <article class="card h-100">
                 <div class="card-body" id="AditzaTaulak">
                     <h2 class="h4 card-title">Aditza Taulak</h2>
-                    <p>
-                        En <strong>Aditza Taulak</strong> puedes consultar las diferentes tablas de conjugación de
-                        verbos.<br>
-                        Por el momento están sólo los verbos trinkos dados en clase.
-                    </p>
-                    <p class="mb-0">Usa los links de navegación en la parte de arriba para ir a la tabla seleccionada.
-                    </p>
+                    <p>En <strong>Aditza Taulak</strong> puedes consultar las conjugaciones disponibles de los verbos
+                        trinkoak, organizadas por tipo. Usa los botones de navegación para saltar a una tabla.</p>
+                    <p class="mb-0">La opción <strong>Orden Ni / Zu</strong> cambia el orden de esos pronombres.</p>
+                    <p><strong>Ocultar Hi</strong> oculta las filas de <em>hi</em> y <em>hik</em>.</p>
                 </div>
             </article>
         </div>

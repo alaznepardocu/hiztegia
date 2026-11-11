@@ -32,11 +32,9 @@
         </div>
 
         <div class="row justify-content-center">
-        @if(serviceHiztegia.transitiboak().length > 0){
-
-        
+        @if(serviceHiztegia.intransitiboak().length > 0){
             <!-- Los transitivos -->
-            @for(aditza of serviceHiztegia.transitiboak(); track aditza){
+            @for(aditza of serviceHiztegia.intransitiboak(); track aditza){
             <div class="col-10 col-lg-4 mt-4">
                 <div class="card p-2 my-2 " [id]="'trinkoa-' + aditza">
                     <h3><b><u>{{aditza.toUpperCase()}}</u></b></h3>
@@ -80,7 +78,7 @@
         </div>
         <div class="row justify-content-center">
             <!-- Los transitivos -->
-            @for(aditza of serviceHiztegia.intransitiboak(); track aditza){
+            @for(aditza of serviceHiztegia.transitiboak(); track aditza){
             <div class="col-12 col-lg-6">
                 <div class="card p-2 mt-4" [id]="'trinkoa-' + aditza">
                     <h3><b><u>{{aditza.toUpperCase()}}</u></b></h3>

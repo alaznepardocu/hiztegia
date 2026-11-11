@@ -17,13 +17,14 @@ export class AditzakPraktikatuFiltros {
   textoFiltrado = '';
   filtrado = false;
   aditzakAEstudiar: Aditza[] = [];
+  ocultarHi = false;
   @Output() empezar = new EventEmitter<Aditza[]>();
 
   constructor(public readonly serviceHiztegia: ServiceHiztegia) {}
 
   get trinkoAditzak(): string[] {
     const disponibles = new Set(this.serviceHiztegia.aditzTrikoak());
-    return [...this.serviceHiztegia.transitiboak(), ...this.serviceHiztegia.intransitiboak()]
+    return [...this.serviceHiztegia.intransitiboak(), ...this.serviceHiztegia.transitiboak()]
       .filter((aditza, index, aditzak) => disponibles.has(aditza) && aditzak.indexOf(aditza) === index);
   }
 
@@ -53,18 +54,28 @@ export class AditzakPraktikatuFiltros {
     this.filtrar();
   }
 
+  cambiarOcultarHi(isChecked: boolean): void {
+    this.ocultarHi = isChecked;
+    this.filtrar();
+  }
+
   filtrar(): void {
     const tiempos = (aditza: Aditza) =>
       (this.orainaldia && aditza.denbora === 'orainaldia') ||
       (this.lehenaldia && aditza.denbora === 'lehenaldia');
     const trinkoak: Trinkoa[] = this.serviceHiztegia.trinkoak().filter(aditza =>
-      this.arrayTrinkoak.includes(aditza.aditza) && tiempos(aditza)
+      this.arrayTrinkoak.includes(aditza.aditza) &&
+      tiempos(aditza) &&
+      (!this.ocultarHi || (aditza.pertsona !== 'hi' && aditza.pertsona !== 'hik'))
     );
     const auxiliarrak: NorNork[] = this.serviceHiztegia.auxiliarrak().filter(aditza =>
-      this.arrayAuxiliarrak.includes(aditza.aditza) && tiempos(aditza)
+      this.arrayAuxiliarrak.includes(aditza.aditza) &&
+      tiempos(aditza) &&
+      (!this.ocultarHi || (aditza.nor !== 'hi' && aditza.nork !== 'hik'))
     );
 
     this.aditzakAEstudiar = [...trinkoak, ...auxiliarrak];
+
     this.filtrado = true;
     this.textoFiltrado = this.aditzakAEstudiar.length > 0
       ? 'Filtrado con éxito'

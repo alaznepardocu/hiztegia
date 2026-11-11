@@ -5,14 +5,17 @@
 <div class="card p-3">
     <p class="fs-2 text-center pb-2">
         @if (modo === "Euskara") {
-            {{palabraSeleccionada.eu}}
+            {{palabraSeleccionada.eu}} 
+            @if(palabraSeleccionada.notaeu){
+                ({{palabraSeleccionada.notaeu}})
+            }
         } @else {
-            {{palabraSeleccionada.es.join(' · ')}}
+            {{palabraSeleccionada.es.join(' / ')}}
+            @if(palabraSeleccionada.notaes){
+                ({{palabraSeleccionada.notaes}})
+            }
         }
     </p>
-    @if (modo === "Euskara" && palabraSeleccionada.es.length > 1 && !acertado) {
-        <p class="text-center text-muted">Vale cualquiera de sus {{palabraSeleccionada.es.length}} significados</p>
-    }
 
     @if (intentos > 0 && !acertado) {
         <form class="input-group mb-3 w-100" (ngSubmit)="probar()">

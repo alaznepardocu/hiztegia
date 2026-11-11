@@ -9,9 +9,13 @@ interface Borrador {
   eu: string;
   euAlt: string;      // variantes separadas por comas
   es: string[];       // un significado por elemento
-  nota: string;
+  notaes: string;
+  notaeu: string;
   maila: string;
   ikasturtea: number;
+  dia: number;
+  mes: number;
+  fechaOriginal?: string;
 }
 
 const MAX_FILAS = 100;
@@ -23,6 +27,20 @@ const MAX_FILAS = 100;
 })
 export class EditorPalabras {
   readonly nivelesPosibles = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+  readonly meses = [
+    { valor: 1, nombre: 'Enero' },
+    { valor: 2, nombre: 'Febrero' },
+    { valor: 3, nombre: 'Marzo' },
+    { valor: 4, nombre: 'Abril' },
+    { valor: 5, nombre: 'Mayo' },
+    { valor: 6, nombre: 'Junio' },
+    { valor: 7, nombre: 'Julio' },
+    { valor: 8, nombre: 'Agosto' },
+    { valor: 9, nombre: 'Septiembre' },
+    { valor: 10, nombre: 'Octubre' },
+    { valor: 11, nombre: 'Noviembre' },
+    { valor: 12, nombre: 'Diciembre' },
+  ];
   readonly maxFilas = MAX_FILAS;
   readonly etiquetaIkasturtea = etiquetaIkasturtea;
   readonly formatearFecha = formatearFecha;
@@ -38,6 +56,28 @@ export class EditorPalabras {
   readonly mensaje = signal<{ texto: string; error: boolean } | null>(null);
 
   constructor(public readonly svc: ServiceHiztegia) {}
+
+  get diasDisponibles(): number[] {
+    const anio = this.anioDelCurso(this.borrador.mes);
+    const total = new Date(anio, this.borrador.mes, 0).getDate();
+    return Array.from({ length: total }, (_, index) => index + 1);
+  }
+
+  cambiarMes(mes: number): void {
+    this.borrador.mes = Number(mes);
+    this.ajustarDia();
+  }
+
+  cambiarIkasturtea(ikasturtea: number): void {
+    this.borrador.ikasturtea = Number(ikasturtea);
+    this.ajustarDia();
+  }
+
+  private ajustarDia(): void {
+    if (this.borrador.dia > this.diasDisponibles.length) {
+      this.borrador.dia = this.diasDisponibles.length;
+    }
+  }
 
   get filtradas(): Hitz[] {
     const texto = normalizar(this.filtroTexto);
@@ -65,9 +105,13 @@ export class EditorPalabras {
       eu: p.eu,
       euAlt: (p.eu_alt ?? []).join(', '),
       es: [...p.es],
-      nota: p.nota ?? '',
+      notaes: p.notaes ?? '',
+      notaeu: p.notaeu ?? '',
       maila: p.maila,
       ikasturtea: p.ikasturtea,
+      dia: Number(p.data.slice(8, 10)),
+      mes: Number(p.data.slice(5, 7)),
+      fechaOriginal: p.data,
     };
     this.editandoId.set(p.id ?? null);
     this.mensaje.set(null);
@@ -83,13 +127,15 @@ export class EditorPalabras {
     const fila: NuevaHitz = {
       eu: this.borrador.eu.trim(),
       eu_alt: this.borrador.euAlt.split(',').map(s => s.trim()).filter(Boolean),
+      notaeu: this.borrador.notaeu.trim() || null,
       es: this.borrador.es.map(s => s.trim()).filter(Boolean),
-      nota: this.borrador.nota.trim() || null,
+      notaes: this.borrador.notaes.trim() || null,
       maila: this.borrador.maila,
       ikasturtea: Number(this.borrador.ikasturtea),
+      data: this.borrador.fechaOriginal ?? this.fechaSeleccionada(),
     };
-    if (!fila.eu || fila.es.length === 0 || !fila.ikasturtea) {
-      this.aviso('Escribe la palabra en euskera y al menos un significado.', true);
+    if (!fila.eu || fila.es.length === 0 || !Number.isInteger(fila.ikasturtea) || fila.ikasturtea < 1) {
+      this.aviso('Escribe la palabra en euskera, al menos un significado y un curso válido.', true);
       return;
     }
 
@@ -136,10 +182,24 @@ export class EditorPalabras {
       eu: '',
       euAlt: '',
       es: [''],
-      nota: '',
+      notaes: '',
+      notaeu: '',
       maila: base.maila ?? 'A1',
       ikasturtea: base.ikasturtea ?? ikasturteaPorDefecto(),
+      dia: new Date().getDate(),
+      mes: new Date().getMonth() + 1,
     };
+  }
+
+  private fechaSeleccionada(): string {
+    const anio = this.anioDelCurso(this.borrador.mes);
+    const mes = String(this.borrador.mes).padStart(2, '0');
+    const dia = String(this.borrador.dia).padStart(2, '0');
+    return `${anio}-${mes}-${dia}`;
+  }
+
+  private anioDelCurso(mes: number): number {
+    return Number(this.borrador.ikasturtea) + (mes < 9 ? 1 : 0);
   }
 
   private aviso(texto: string, error: boolean): void {

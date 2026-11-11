@@ -23,8 +23,8 @@ export class ServiceHiztegia {
     //      aquí se siguen ofreciendo con la forma de siempre para no tocar las pantallas)
     trinkoak = signal<Trinkoa[]>([]);
     aditzTrikoak = signal<string[]>([]);
-    transitiboak = signal<string[]>(['izan', 'egon', 'joan', 'etorri', 'ibili']);
-    intransitiboak = signal<string[]>(['ukan', 'eduki', 'ekarri', 'eraman', 'jakin']);
+    intransitiboak = signal<string[]>(['izan', 'egon', 'joan', 'etorri', 'ibili']);
+    transitiboak = signal<string[]>(['ukan', 'eduki', 'ekarri', 'eraman', 'jakin']);
 
     auxiliarrak = signal<NorNork[]>([]);
     aditzAuxiliarrak = signal<string[]>([]);

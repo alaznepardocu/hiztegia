@@ -2,14 +2,15 @@ export interface Hitz {
     id?: string,
     eu: string,
     eu_alt?: string[],
+    notaeu?: string | null,
     es: string[],            // antes era string: ahora una palabra puede tener varios significados
-    nota?: string | null,
+    notaes?: string | null,
     maila: string,           // nivel: A1, A2...
     ikasturtea: number,      // año en que empieza el curso: 2026 = curso 2026-27
     data: string             // 'YYYY-MM-DD' (antes '06-oct')
 }
 
-export type NuevaHitz = Omit<Hitz, 'id' | 'data'>;
+export type NuevaHitz = Omit<Hitz, 'id'>;
 
 // Formas "antiguas" de los verbos: el servicio las sigue ofreciendo para que
 // las pantallas de verbos no cambien, aunque en la base de datos estén unificados.

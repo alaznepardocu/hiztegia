@@ -1,16 +1,19 @@
-# APCHiztegia
+# APC Hiztegia
 
 Aplicación web para consultar y practicar vocabulario y verbos en euskera.
 
 ## Funcionalidades
 
-- **Hiztegia Praktikatu:** practica palabras con filtros por curso y fecha.
-- **Hiztegia:** consulta y busca vocabulario.
-- **Aditzak Praktikatu:** practica verbos compactos y auxiliares, seleccionando verbos y tiempos.
-- **Aditza Taulak:** consulta tablas de conjugación y cambia el orden de los pronombres.
-- **Info:** guía de uso e información de la aplicación.
+- **Hiztegia Praktikatu:** ejercicios en euskera o castellano, filtrados por nivel, curso y fecha. Acepta los distintos significados y variantes de una palabra; al mezclar cursos agrupa las entradas con la misma palabra en euskera.
+- **Hiztegia:** consulta del vocabulario con filtros por nivel, curso y fecha, y búsqueda por euskera, variantes, castellano, nivel o fecha. Muestra significados, notas y variantes cuando están disponibles.
+- **Aditzak Praktikatu:** práctica de verbos trinkoak y auxiliares. Permite seleccionar verbos y tiempos (presente y pasado), seleccionar todos los trinkoak y excluir las formas de **hi/hik**.
+- **Aditza Taulak:** consulta de tablas de conjugación. Permite cambiar el orden de **ni/zu** y ocultar las formas **hi/hik**.
+- **Administración:** en `/menuAdmin`, las cuentas autorizadas pueden iniciar sesión y gestionar el vocabulario (añadir, editar, borrar y filtrar palabras). Al añadir una palabra se selecciona el día y mes de la clase; al editarla se conserva su fecha. El acceso de escritura está protegido también por las políticas RLS de Supabase.
+- **Info:** guía de uso y formulario para reportar errores disponible en el pie de la aplicación.
 
-Los datos de vocabulario y verbos se obtienen de JSONBin, por lo que la aplicación necesita conexión a Internet para cargarlos.
+## Datos
+
+El vocabulario y las conjugaciones se cargan desde Supabase, por lo que la aplicación necesita conexión a Internet. La administración requiere una cuenta autorizada; los permisos de escritura se controlan en la base de datos mediante políticas RLS.
 
 ## Requisitos
 
@@ -44,7 +47,7 @@ Los archivos generados se guardan en `dist/`.
 
 ## Pruebas
 
-Ejecuta las pruebas unitarias con Vitest:
+Ejecuta las pruebas unitarias:
 
 ```bash
 npm test
@@ -52,8 +55,8 @@ npm test
 
 ## Tecnologías
 
-- Angular
-- TypeScript
+- Angular y TypeScript
+- Supabase
 - Bootstrap
 - Vitest
 

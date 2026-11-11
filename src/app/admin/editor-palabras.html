@@ -3,13 +3,17 @@
 
     <form (ngSubmit)="guardar()">
         <div class="row g-2">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-4">
                 <label class="form-label mb-1" for="eu"><b>Euskera</b></label>
                 <input id="eu" class="form-control" name="eu" [(ngModel)]="borrador.eu" autocomplete="off">
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-4">
                 <label class="form-label mb-1" for="euAlt">Variantes en euskera (separadas por comas)</label>
                 <input id="euAlt" class="form-control" name="euAlt" [(ngModel)]="borrador.euAlt" autocomplete="off">
+            </div>
+            <div class="col-12 col-md-4">
+                <label class="form-label mb-1" for="notaeu">Nota Euskera (opcional)</label>
+                <input id="notaeu" class="form-control" name="notaeu" [(ngModel)]="borrador.notaeu" autocomplete="off">
             </div>
         </div>
 
@@ -24,7 +28,10 @@
             </div>
         }
         <button class="btn btn-sm btn-outline-secondary" type="button" (click)="anadirSignificado()">+ significado</button>
-
+        <div class="col-12 col-md-12">
+            <label class="form-label mb-1" for="notaes">Nota Castellano (opcional) - Recomendable cuando hay un solo significado</label>
+            <input id="notaes" class="form-control" name="notaes" [(ngModel)]="borrador.notaes" autocomplete="off">
+        </div>
         <div class="row g-2 mt-2">
             <div class="col-6 col-md-3">
                 <label class="form-label mb-1" for="maila">Nivel</label>
@@ -34,18 +41,37 @@
                     }
                 </select>
             </div>
+
             <div class="col-6 col-md-3">
                 <label class="form-label mb-1" for="ikasturtea">Curso (año de inicio)</label>
                 <input id="ikasturtea" class="form-control" type="number" name="ikasturtea"
-                    [(ngModel)]="borrador.ikasturtea">
+                    [ngModel]="borrador.ikasturtea" (ngModelChange)="cambiarIkasturtea($event)">
                 <small class="text-muted">{{ etiquetaIkasturtea(borrador.ikasturtea) }}</small>
             </div>
-            <div class="col-12 col-md-6">
-                <label class="form-label mb-1" for="nota">Nota (opcional)</label>
-                <input id="nota" class="form-control" name="nota" [(ngModel)]="borrador.nota" autocomplete="off">
-            </div>
+            @if (!editandoId()) {
+                <div class="col-6 col-md-3">
+                    <label class="form-label mb-1" for="mes">Mes de la clase</label>
+                    <select id="mes" class="form-select" name="mes" [ngModel]="borrador.mes"
+                        (ngModelChange)="cambiarMes($event)">
+                        @for (mes of meses; track mes.valor) {
+                            <option [ngValue]="mes.valor">{{mes.nombre}}</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label class="form-label mb-1" for="dia">Día de la clase</label>
+                    <select id="dia" class="form-select" name="dia" [(ngModel)]="borrador.dia">
+                        @for (dia of diasDisponibles; track dia) {
+                            <option [ngValue]="dia">{{dia}}</option>
+                        }
+                    </select>
+                </div>
+            } @else {
+                <div class="col-12 col-md-6 d-flex align-items-center">
+                    <span>Fecha: {{formatearFecha(borrador.fechaOriginal ?? '')}}</span>
+                </div>
+            }
         </div>
-
         <div class="d-flex gap-2 mt-3">
             <button class="btn btn-danger" type="submit" [disabled]="guardando()">
                 {{ editandoId() ? 'Guardar cambios' : 'Añadir' }}
@@ -98,11 +124,12 @@
                 <tr>
                     <td>
                         {{p.eu}}
+                        @if (p.notaeu) { <br><small class="text-muted">{{p.notaeu}}</small> }
                         @if (p.eu_alt && p.eu_alt.length > 0) { <br><small class="text-muted">{{p.eu_alt.join(', ')}}</small> }
                     </td>
                     <td>
-                        {{p.es.join(' · ')}}
-                        @if (p.nota) { <br><small class="text-muted">{{p.nota}}</small> }
+                        {{p.es.join(' / ')}}
+                        @if (p.notaes) { <br><small class="text-muted">{{p.notaes}}</small> }
                     </td>
                     <td>{{p.maila}}</td>
                     <td>{{etiquetaIkasturtea(p.ikasturtea)}}</td>

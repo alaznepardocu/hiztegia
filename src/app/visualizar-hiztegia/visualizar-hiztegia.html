@@ -58,14 +58,17 @@
         <tr>
           <td>
             {{palabra.eu}}
+            @if (palabra.notaeu) {
+             <small class="text-muted"> ({{palabra.notaeu}})</small>
+            }
             @if (palabra.eu_alt && palabra.eu_alt.length > 0) {
               <br><small class="text-muted">{{palabra.eu_alt.join(', ')}}</small>
             }
           </td>
           <td>
-            {{palabra.es.join(' · ')}}
-            @if (palabra.nota) {
-              <br><small class="text-muted">{{palabra.nota}}</small>
+            {{palabra.es.join(' / ')}}
+            @if (palabra.notaes) {
+             <small class="text-muted"> ({{palabra.notaes}})</small>
             }
           </td>
           <td>{{palabra.maila}}</td>

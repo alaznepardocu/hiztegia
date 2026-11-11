@@ -67,6 +67,12 @@
             </div>
         </div>
     </div>
+    <hr>
+    <div class="form-check w-auto d-flex align-items-center justify-content-center gap-2 p-2 ml-4">
+        <input class="form-check-input m-0 flex-shrink-0" type="checkbox" id="ocultarHi"
+            [checked]="ocultarHi" (change)="cambiarOcultarHi($event.target.checked)">
+        <label class="form-check-label text-center" for="ocultarHi">No estudiar Hi eta Hik</label>
+    </div>
     @if (filtrado) {
         <hr>
         @if (aditzakAEstudiar.length > 0) {

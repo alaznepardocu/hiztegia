@@ -32,7 +32,7 @@ export class HiztegiaPraktikatuPractica implements OnInit {
   /** Lo que se enseña como solución cuando se agotan los intentos. */
   get respuestaVisible(): string {
     const p = this.palabraSeleccionada;
-    return this.modo === 'Euskara' ? p.es.join(' · ') : [p.eu, ...(p.eu_alt ?? [])].join(' · ');
+    return this.modo === 'Euskara' ? p.es.join(' / ') : [p.eu, ...(p.eu_alt ?? [])].join(' / ');
   }
 
   public sacarPalabra(): void {
@@ -63,7 +63,7 @@ export class HiztegiaPraktikatuPractica implements OnInit {
 
     if (this.acertado) {
       this.textoAcierto = '<strong>Oso ondo!</strong><br>';
-      this.solucion = `${this.palabraSeleccionada.eu} = ${this.palabraSeleccionada.es.join(' · ')}`;
+      this.solucion = `${this.palabraSeleccionada.eu} = ${this.palabraSeleccionada.es.join(' / ')}`;
       this.classTextoAcierto = 'text-center text-success fw-bold fs-2';
       this.palabrasAEstudiar.splice(this.palabrasAEstudiar.indexOf(this.palabraSeleccionada), 1);
       this.palabraIntroducida = '';
