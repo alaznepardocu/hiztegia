@@ -35,9 +35,7 @@ export class VisualizarHiztegia {
       (!filtro ||
         normalizar(palabra.eu).includes(filtro) ||
         (palabra.eu_alt ?? []).some(v => normalizar(v).includes(filtro)) ||
-        palabra.es.some(s => normalizar(s).includes(filtro)) ||
-        normalizar(palabra.maila).includes(filtro) ||
-        formatearFecha(palabra.data).includes(filtro))
+        palabra.es.some(s => normalizar(s).includes(filtro)))
     );
   });
 

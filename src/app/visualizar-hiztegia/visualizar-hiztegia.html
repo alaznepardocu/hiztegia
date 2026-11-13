@@ -57,12 +57,12 @@
         @for (palabra of palabrasFiltradas(); track palabra.id) {
         <tr>
           <td>
-            {{palabra.eu}}
+            {{palabra.eu.toLowerCase()}}
             @if (palabra.notaeu) {
-             <small class="text-muted"> ({{palabra.notaeu}})</small>
+             <small class="text-muted"> ({{palabra.notaeu.toLowerCase()}})</small>
             }
             @if (palabra.eu_alt && palabra.eu_alt.length > 0) {
-              <br><small class="text-muted">{{palabra.eu_alt.join(', ')}}</small>
+              / {{palabra.eu_alt.join(' / ').toLowerCase()}}
             }
           </td>
           <td>

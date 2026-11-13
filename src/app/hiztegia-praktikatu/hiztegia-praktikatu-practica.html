@@ -26,11 +26,8 @@
                 (click)="palabraIntroducida = ''">X</button>
         </form>
     }
-
+    <p class="text-center fs-5">{{solucion}}</p>
     <p [class]="classTextoAcierto" [innerHTML]="textoAcierto"></p>
-    @if (palabrasAEstudiar.length > 0) {
-        <p class="text-center fs-5">{{solucion}}</p>
-    }
     @if (intentos === 0) {
         <p class="fs-4 text-center">La solución era:<br><b>{{respuestaVisible}}</b></p>
     }

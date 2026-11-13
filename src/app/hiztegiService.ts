@@ -29,6 +29,8 @@ export class ServiceHiztegia {
     auxiliarrak = signal<NorNork[]>([]);
     aditzAuxiliarrak = signal<string[]>([]);
     auxiliarrakDisponibles = signal<string[]>(['nor-nork']);
+    laguntzaileakDenborak = signal<string[]>([]);
+    laguntzaileakModuak = signal<string[]>([]);
 
     // ---- Estado de carga
     cargado = signal(false);
@@ -88,11 +90,15 @@ export class ServiceHiztegia {
             const trinkoak = aditzak.filter(f => f.mota !== 'nor-nork').map(aTrinkoa);
             const auxiliarrak = aditzak.filter(f => f.mota === 'nor-nork').map(aNorNork);
             const nombresAuxiliarrak = [...new Set(auxiliarrak.map(a => a.aditza))];
+            const denboraAuxiliarrak = [...new Set(auxiliarrak.map(a => a.denbora))];
+            const moduakAuxiliarrak = [...new Set(auxiliarrak.map(a => a.modua))];
 
             this.trinkoak.set(trinkoak);
             this.aditzTrikoak.set([...new Set(trinkoak.map(t => t.aditza))]);
             this.auxiliarrak.set(auxiliarrak);
             this.aditzAuxiliarrak.set(nombresAuxiliarrak);
+            this.laguntzaileakDenborak.set(denboraAuxiliarrak);
+            this.laguntzaileakModuak.set(moduakAuxiliarrak);
             this.auxiliarrakDisponibles.set(nombresAuxiliarrak);
 
             this.cargado.set(true);
@@ -130,6 +136,7 @@ function aNorNork(f: AditzaFila): NorNork {
     return {
         aditza: f.aditza,
         konjugaioa: f.konjugaioa,
+        modua: f.modua ?? '',
         nor: f.nor ?? '',
         nork: f.nork ?? '',
         denbora: f.denbora,

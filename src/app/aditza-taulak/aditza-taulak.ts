@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { ServiceHiztegia } from '../hiztegiService';
 import { NorNork, Trinkoa } from '../hiztegia';
 
+interface NorItem  { nor: string; konjugazioa: string}
+interface NorkItem { nork: string; konjugazioa: string}
+
 @Component({
   imports: [],
   selector: 'app-aditza-taulak',
@@ -43,7 +46,7 @@ export class AditzaTaulak {
     this.aditzaActual =  this.serviceHiztegia.trinkoak().filter((item) => item.aditza === aditza);
   }
 
-  irATabla(id: string): void {
+  irAID(id: string): void {
     const tabla = document.getElementById(id);
     if (!tabla) {
       console.error(`No se encontró la tabla con id "${id}".`);
@@ -69,6 +72,39 @@ export class AditzaTaulak {
     return denborakUnicas;
   }
 
+    obtenerNorNorkKonjugazioa(norEdoNork: string, pertsona: string, denbora: string): string {
+      var elemento = '';  
+      if(denbora === "orainaldia"){
+        const nor : NorItem[] = ([
+            { nor: 'NI',    konjugazioa: 'nau'},
+            { nor: 'HI',    konjugazioa: 'ha'},
+            { nor: 'HURA',  konjugazioa: 'du'},
+            { nor: 'GU',    konjugazioa: 'gaitu'},
+            { nor: 'ZU',    konjugazioa: 'zaitu'},
+            { nor: 'ZUEK',  konjugazioa: 'zaituzte'},
+            { nor: 'HAIEK', konjugazioa: 'ditu'},
+          ]);
+
+        const nork : NorkItem[] = ([
+            { nork: 'NIK',    konjugazioa: 't'},
+            { nork: 'HIK',    konjugazioa: 'k/n'},
+            { nork: 'HARK',  konjugazioa: '-'},
+            { nork: 'GUK',    konjugazioa: 'gu'},
+            { nork: 'ZUK',    konjugazioa: 'zu'},
+            { nork: 'ZUEK',  konjugazioa: 'zue'},
+            { nork: 'HAIEK', konjugazioa: 'te'},
+          ]);
+    if (norEdoNork === 'nor') {
+      const encontrado = nor.find(item => item.nor === pertsona.toUpperCase());
+      elemento = encontrado ? encontrado.konjugazioa : '';
+    } else {
+      const encontrado = nork.find(item => item.nork === pertsona.toUpperCase());
+      elemento = encontrado ? encontrado.konjugazioa : '';
+    }
+      }
+      return elemento;
+
+  }
 
 
 }

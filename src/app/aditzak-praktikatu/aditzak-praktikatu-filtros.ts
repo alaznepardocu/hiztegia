@@ -12,13 +12,16 @@ import type { Aditza } from './aditzak-praktikatu';
 export class AditzakPraktikatuFiltros {
   arrayTrinkoak: string[] = [];
   arrayAuxiliarrak: string[] = [];
-  orainaldia = true;
-  lehenaldia = true;
+  trikoakOrainaldia = false;
+  trikoakLehenaldia = false;
+  arrayLaguntzailakDenborak: string[] = [];
+  arrayLaguntzailakModuak: string[] = [];
   textoFiltrado = '';
   filtrado = false;
   aditzakAEstudiar: Aditza[] = [];
   ocultarHi = false;
-  @Output() empezar = new EventEmitter<Aditza[]>();
+  usarGauzak = true;
+  @Output() empezar = new EventEmitter<{ aditzak: Aditza[]; usarGauzak: boolean }>();
 
   constructor(public readonly serviceHiztegia: ServiceHiztegia) {}
 
@@ -54,23 +57,55 @@ export class AditzakPraktikatuFiltros {
     this.filtrar();
   }
 
+  onChangeLaguntzaileDenborak(denbora: string, isChecked: boolean): void {
+    const seleccionados = this.arrayLaguntzailakDenborak;
+    if (isChecked && !seleccionados.includes(denbora)) {
+      seleccionados.push(denbora);
+    } else if (!isChecked) {
+      const index = seleccionados.indexOf(denbora);
+      if (index !== -1) {
+        seleccionados.splice(index, 1);
+      }
+    }
+    this.filtrar();
+  }
+
+    onChangeLaguntzaileModuak(modua: string, isChecked: boolean): void {
+    const seleccionados = this.arrayLaguntzailakModuak;
+    if (isChecked && !seleccionados.includes(modua)) {
+      seleccionados.push(modua);
+    } else if (!isChecked) {
+      const index = seleccionados.indexOf(modua);
+      if (index !== -1) {
+        seleccionados.splice(index, 1);
+      }
+    }
+    this.filtrar();
+  }
+
+  cambiarUsarGauzak(isChecked: boolean): void {
+    this.usarGauzak = isChecked;
+    this.filtrar();
+  }
+
   cambiarOcultarHi(isChecked: boolean): void {
     this.ocultarHi = isChecked;
     this.filtrar();
   }
 
   filtrar(): void {
-    const tiempos = (aditza: Aditza) =>
-      (this.orainaldia && aditza.denbora === 'orainaldia') ||
-      (this.lehenaldia && aditza.denbora === 'lehenaldia');
+    const tiemposTrikos = (aditza: Aditza) =>
+      (this.trikoakOrainaldia && aditza.denbora === 'orainaldia') ||
+      (this.trikoakLehenaldia && aditza.denbora === 'lehenaldia');
     const trinkoak: Trinkoa[] = this.serviceHiztegia.trinkoak().filter(aditza =>
       this.arrayTrinkoak.includes(aditza.aditza) &&
-      tiempos(aditza) &&
+      tiemposTrikos(aditza) &&
       (!this.ocultarHi || (aditza.pertsona !== 'hi' && aditza.pertsona !== 'hik'))
     );
     const auxiliarrak: NorNork[] = this.serviceHiztegia.auxiliarrak().filter(aditza =>
       this.arrayAuxiliarrak.includes(aditza.aditza) &&
-      tiempos(aditza) &&
+      this.arrayLaguntzailakDenborak.includes(aditza.denbora) &&
+      this.arrayLaguntzailakModuak.includes(aditza.modua) &&
       (!this.ocultarHi || (aditza.nor !== 'hi' && aditza.nork !== 'hik'))
     );
 
@@ -86,7 +121,10 @@ export class AditzakPraktikatuFiltros {
 
   iniciarPractica(): void {
     if (this.aditzakAEstudiar.length > 0) {
-      this.empezar.emit([...this.aditzakAEstudiar]);
+      this.empezar.emit({
+        aditzak: [...this.aditzakAEstudiar],
+        usarGauzak: this.usarGauzak,
+      });
     }
   }
 }

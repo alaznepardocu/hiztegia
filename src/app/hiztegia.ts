@@ -27,13 +27,15 @@ export interface NorNork {
     konjugaioa: string,
     nor:        string,
     nork:       string,
-    denbora:    string
+    denbora:    string,
+    modua: string;
 }
 
 // Fila de la tabla unificada "aditzak" (trinkoak + auxiliarrak)
 export interface AditzaFila {
     id: string,
     mota: 'nor' | 'nork' | 'nor-nork',
+    modua: string | null,
     aditza: string,
     denbora: string,
     nor: string | null,

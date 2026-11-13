@@ -15,6 +15,7 @@ export type Aditza = Trinkoa | NorNork;
 export class AditzakPraktikatu {
   readonly pantalla = signal<'cargando' | 'filtros' | 'practicando'>('cargando');
   aditzakAEstudiar: Aditza[] = [];
+  usarGauzak: boolean = true;
 
   constructor(public readonly serviceHiztegia: ServiceHiztegia) {
     effect(() => {
@@ -26,8 +27,9 @@ export class AditzakPraktikatu {
     });
   }
 
-  empezar(aditzak: Aditza[]): void {
-    this.aditzakAEstudiar = aditzak;
+  empezar(datos: { aditzak: Aditza[]; usarGauzak: boolean }): void {
+    this.aditzakAEstudiar = datos.aditzak;
+    this.usarGauzak = datos.usarGauzak;
     this.pantalla.set('practicando');
   }
 
