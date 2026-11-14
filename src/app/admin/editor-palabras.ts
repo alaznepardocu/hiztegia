@@ -48,6 +48,7 @@ export class EditorPalabras {
   borrador: Borrador = this.borradorNuevo();
   filtroNivel = 'Todos';
   filtroIkasturtea = 'Todos';
+  filtroData = 'Todos';
   filtroTexto = '';
 
   // Estado que cambia después de un "await": en signals (la app no usa zone.js)
@@ -85,6 +86,7 @@ export class EditorPalabras {
       .filter(p =>
         (this.filtroNivel === 'Todos' || p.maila === this.filtroNivel) &&
         (this.filtroIkasturtea === 'Todos' || etiquetaIkasturtea(p.ikasturtea) === this.filtroIkasturtea) &&
+        (this.filtroData === 'Todos' || p.data === this.filtroData) &&
         (!texto ||
           normalizar(p.eu).includes(texto) ||
           p.es.some(s => normalizar(s).includes(texto))))

@@ -32,7 +32,36 @@ export class HiztegiaPraktikatuPractica implements OnInit {
   /** Lo que se enseña como solución cuando se agotan los intentos. */
   get respuestaVisible(): string {
     const p = this.palabraSeleccionada;
-    return this.modo === 'Euskara' ? p.es.join(' / ') : [p.eu, ...(p.eu_alt ?? [])].join(' / ');
+    var respuesta = "";
+    if(this.modo === 'Euskara'){
+      respuesta = p.es.join(' / ');
+      if(p.notaes){
+        respuesta += " (" + p.notaes + ")";
+      }
+    }
+    else{
+      respuesta = [p.eu, ...(p.eu_alt ?? [])].join(' / ')
+      if(p.notaeu){
+        respuesta += " (" + p.notaeu + ")";
+      }
+    }
+    return respuesta.toLowerCase();
+  }
+
+  /** Lo que se enseña como solución cuando se acierta la palabra. */
+  get respuestaTotal(): string {
+    const p = this.palabraSeleccionada;
+    var respuesta = "";
+    respuesta += [p.eu, ...(p.eu_alt ?? [])].join(' / ')
+    if(p.notaeu){
+      respuesta += " (" + p.notaeu + ")";
+    }
+    respuesta += " = "
+    respuesta += p.es.join(' / ');
+    if(p.notaes){
+      respuesta += " (" + p.notaes + ")";
+    }
+    return respuesta.toLowerCase();
   }
 
   public sacarPalabra(): void {
@@ -63,7 +92,7 @@ export class HiztegiaPraktikatuPractica implements OnInit {
 
     if (this.acertado) {
       this.textoAcierto = '<strong>Oso ondo!</strong><br>';
-      this.solucion = `${this.palabraSeleccionada.eu} = ${this.palabraSeleccionada.es.join(' / ')}`;
+      this.solucion = this.respuestaTotal;
       this.classTextoAcierto = 'text-center text-success fw-bold fs-2';
       this.palabrasAEstudiar.splice(this.palabrasAEstudiar.indexOf(this.palabraSeleccionada), 1);
       this.palabraIntroducida = '';

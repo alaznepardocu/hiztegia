@@ -89,17 +89,24 @@
 
 <h2 class="h5">Palabras</h2>
 <div class="row g-2 mb-3">
-    <div class="col-6 col-md-3">
+    <div class="col-6 col-md-2">
         <select class="form-select" name="filtroNivel" [(ngModel)]="filtroNivel">
             @for (n of svc.niveles(); track $index) {
                 <option [value]="n">Nivel: {{n}}</option>
             }
         </select>
     </div>
-    <div class="col-6 col-md-3">
+    <div class="col-6 col-md-2">
         <select class="form-select" name="filtroIkasturtea" [(ngModel)]="filtroIkasturtea">
             @for (y of svc.ikasturteak(); track $index) {
                 <option [value]="y">Curso: {{y}}</option>
+            }
+        </select>
+    </div>
+        <div class="col-6 col-md-2">
+        <select class="form-select" name="filtroIkasturtea" [(ngModel)]="filtroData">
+            @for (d of svc.fechas(); track $index) {
+                <option [value]="d">Fecha: {{d}}</option>
             }
         </select>
     </div>

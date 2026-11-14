@@ -5,7 +5,10 @@
 <div class="card p-3">
     <p class="fs-2 text-center pb-2">
         @if (modo === "Euskara") {
-            {{palabraSeleccionada.eu}} 
+            {{palabraSeleccionada.eu.toLowerCase()}} 
+            @if (palabraSeleccionada.eu_alt != null && palabraSeleccionada.eu_alt.length > 0){
+                / {{palabraSeleccionada.eu_alt.join(' / ').toLowerCase()}}
+            }
             @if(palabraSeleccionada.notaeu){
                 ({{palabraSeleccionada.notaeu}})
             }
@@ -29,7 +32,7 @@
     <p class="text-center fs-5">{{solucion}}</p>
     <p [class]="classTextoAcierto" [innerHTML]="textoAcierto"></p>
     @if (intentos === 0) {
-        <p class="fs-4 text-center">La solución era:<br><b>{{respuestaVisible}}</b></p>
+        <p class="fs-4 text-center">La solución era:<br><b>{{respuestaVisible.toLowerCase()}}</b></p>
     }
 </div>
 <hr>
