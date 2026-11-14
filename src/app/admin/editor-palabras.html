@@ -87,30 +87,36 @@
     }
 </div>
 
-<h2 class="h5">Palabras</h2>
+<h2 class="h5">Palabras en la base de datos</h2>
 <div class="row g-2 mb-3">
     <div class="col-6 col-md-2">
-        <select class="form-select" name="filtroNivel" [(ngModel)]="filtroNivel">
+        <label for="filtroNivel">Nivel:</label>
+        <select class="form-select" name="filtroNivel" [ngModel]="filtroNivel"
+            (ngModelChange)="cambiarFiltroNivel($event)">
             @for (n of svc.niveles(); track $index) {
-                <option [value]="n">Nivel: {{n}}</option>
+                <option [value]="n">{{n}}</option>
             }
         </select>
     </div>
     <div class="col-6 col-md-2">
-        <select class="form-select" name="filtroIkasturtea" [(ngModel)]="filtroIkasturtea">
+        <label for="filtroIkasturtea">Curso:</label>
+        <select class="form-select" name="filtroIkasturtea" [ngModel]="filtroIkasturtea"
+            (ngModelChange)="cambiarFiltroIkasturtea($event)">
             @for (y of svc.ikasturteak(); track $index) {
-                <option [value]="y">Curso: {{y}}</option>
+                <option [value]="y">{{y}}</option>
             }
         </select>
     </div>
-        <div class="col-6 col-md-2">
-        <select class="form-select" name="filtroIkasturtea" [(ngModel)]="filtroData">
-            @for (d of svc.fechas(); track $index) {
-                <option [value]="d">Fecha: {{d}}</option>
+    <div class="col-12 col-md-2">
+        <label for="filtroData">Fecha:</label>
+        <select class="form-select" name="filtroData" [(ngModel)]="filtroData">
+            @for (f of fechasDisponibles; track $index) {
+                <option [value]="f">{{ f === 'Todos' ? f : formatearFecha(f) }}</option>
             }
         </select>
     </div>
     <div class="col-12 col-md-6">
+        <label for="filtroTexto">EU/ES:</label>
         <input class="form-control" name="filtroTexto" placeholder="Buscar por euskera o castellano"
             [(ngModel)]="filtroTexto" autocomplete="off">
     </div>
@@ -131,11 +137,11 @@
                 <tr>
                     <td>
                         {{p.eu}}
+                        @if (p.eu_alt && p.eu_alt.length > 0) {/ {{p.eu_alt.join(' / ')}} }
                         @if (p.notaeu) { <br><small class="text-muted">{{p.notaeu}}</small> }
-                        @if (p.eu_alt && p.eu_alt.length > 0) { <br><small class="text-muted">{{p.eu_alt.join(', ')}}</small> }
                     </td>
                     <td>
-                        {{p.es.join(' / ')}}
+                        {{p.es.join('/')}}
                         @if (p.notaes) { <br><small class="text-muted">{{p.notaes}}</small> }
                     </td>
                     <td>{{p.maila}}</td>

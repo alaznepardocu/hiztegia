@@ -56,7 +56,33 @@ export class EditorPalabras {
   readonly editandoId = signal<string | null>(null);
   readonly mensaje = signal<{ texto: string; error: boolean } | null>(null);
 
-  constructor(public readonly svc: ServiceHiztegia) {}
+  constructor(public readonly svc: ServiceHiztegia) { }
+
+  /** Fechas que existen con el nivel y el curso elegidos (la más reciente primero) */
+  get fechasDisponibles(): string[] {
+    const fechas = new Set(
+      this.svc.hiztegia()
+        .filter(p =>
+          (this.filtroNivel === 'Todos' || p.maila === this.filtroNivel) &&
+          (this.filtroIkasturtea === 'Todos' || etiquetaIkasturtea(p.ikasturtea) === this.filtroIkasturtea))
+        .map(p => p.data)
+    );
+    return ['Todos', ...[...fechas].sort().reverse()];
+  }
+
+  cambiarFiltroNivel(nivel: string): void {
+    this.filtroNivel = nivel;
+    this.revisarFiltroFecha();
+  }
+
+  cambiarFiltroIkasturtea(ikasturtea: string): void {
+    this.filtroIkasturtea = ikasturtea;
+    this.revisarFiltroFecha();
+  }
+
+  private revisarFiltroFecha(): void {
+    if (!this.fechasDisponibles.includes(this.filtroData)) this.filtroData = 'Todos';
+  }
 
   get diasDisponibles(): number[] {
     const anio = this.anioDelCurso(this.borrador.mes);
@@ -80,18 +106,21 @@ export class EditorPalabras {
     }
   }
 
-  get filtradas(): Hitz[] {
-    const texto = normalizar(this.filtroTexto);
-    return this.svc.hiztegia()
-      .filter(p =>
-        (this.filtroNivel === 'Todos' || p.maila === this.filtroNivel) &&
-        (this.filtroIkasturtea === 'Todos' || etiquetaIkasturtea(p.ikasturtea) === this.filtroIkasturtea) &&
-        (this.filtroData === 'Todos' || p.data === this.filtroData) &&
-        (!texto ||
-          normalizar(p.eu).includes(texto) ||
-          p.es.some(s => normalizar(s).includes(texto))))
-      .reverse();   // lo más reciente primero (filter devuelve una copia, no toca el original)
-  }
+get filtradas(): Hitz[] {
+  const texto = normalizar(this.filtroTexto);
+  return this.svc.hiztegia()
+    .filter(p =>
+      (this.filtroNivel === 'Todos' || p.maila === this.filtroNivel) &&
+      (this.filtroIkasturtea === 'Todos' || etiquetaIkasturtea(p.ikasturtea) === this.filtroIkasturtea) &&
+      (this.filtroData === 'Todos' || p.data === this.filtroData) &&
+      (!texto ||
+        normalizar(p.eu).includes(texto) ||
+        (p.eu_alt ?? []).some(v => normalizar(v).includes(texto)) ||
+        p.es.some(s => normalizar(s).includes(texto)) ||
+        normalizar(p.notaeu ?? '').includes(texto) ||
+        normalizar(p.notaes ?? '').includes(texto)))
+    .reverse();   // lo más reciente primero (filter devuelve una copia, no toca el original)
+}
 
   anadirSignificado(): void {
     this.borrador.es.push('');
